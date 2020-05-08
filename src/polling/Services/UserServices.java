@@ -14,7 +14,10 @@ import java.util.logging.Logger;
 import javax.servlet.http.Part;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException; 
+import org.xml.sax.SAXException;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import polling.Models.User;
 import polling.Utils.CommonConstants;
 import polling.Utils.CommonUtil;
@@ -430,5 +433,25 @@ public class UserServices implements IuserServices {
 		return can;
 	}
 
+
+
+	@Override
+	public boolean removeProfilePic(String Id) {
+		boolean result = false;
+		try {
+			conn = DBConnectionUtil.getDBConnection();
+			
+			prepdStatement = conn.prepareStatement("update user set Image = 'default.png' where Id = ?");
+			
+			prepdStatement.setString(1, Id);
+			int res = prepdStatement.executeUpdate();
+			
+			 if(res > 0)
+				 result = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

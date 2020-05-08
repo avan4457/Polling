@@ -25,11 +25,12 @@ if(res == null)
 	res = "Modify or remove your profile";
 %>
 <div id="page-body">
-<form action="SavePicServlet" method="POST" id="ProfPic" enctype="multipart/form-data">
+<form action="ProfilePicServlet" method="POST" id="ProfPic" enctype="multipart/form-data">
 <img src="images/<%=pic %>" width="200" height="200" alt="Profile picture" >
-<input type="file" name="pic" value="Add profile pictue" />
+<input type="file" name="pic" value="Add profile pictue"/>
 <input type="hidden" name="pemail" value=<%=user.getEmail() %> readonly="readonly" class="form-control" />
-<input type="submit" name="submit" value="Add Profile picture" />
+<input type="submit" name="submit" value="Save" class="btn btn-primary" style="float:left;"/>
+<input type="submit" name="submit" value="Remove" class="btn btn-primary" style="float:center;margin-left:5px;background-color:red;"/>
 </form>
 
 <form action="EditDetailsServlet" method="POST">

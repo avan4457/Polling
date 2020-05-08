@@ -2,3 +2,4 @@ src/polling/Utils/DBConnect.java
 .settings/
 .project
 .classpath
+build

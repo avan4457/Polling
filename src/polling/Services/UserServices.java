@@ -18,7 +18,6 @@ import org.xml.sax.SAXException;
 import polling.Models.User;
 import polling.Utils.CommonConstants;
 import polling.Utils.CommonUtil;
-import polling.Utils.DBConnect;
 import polling.Utils.DBConnectionUtil;
 import polling.Utils.QueryUtil;
 /**
@@ -380,7 +379,7 @@ public class UserServices implements IuserServices {
 		
 		User u = new User();
 		try {
-			conn = DBConnect.getconnection();
+			conn = DBConnectionUtil.getDBConnection();
 			
 			prepdStatement = conn.prepareStatement("Select * from user where Id=?");
 			
@@ -389,8 +388,14 @@ public class UserServices implements IuserServices {
 			ResultSet rs = prepdStatement.executeQuery();
 			
 			if(rs.next()){
+				u.setId(rs.getString(1));
 				u.setName(rs.getString(2));
-				//More to add
+				u.setEmail(rs.getString(3));
+				u.setPassword(rs.getString(4));
+				u.setPhoneNumber(rs.getString(5));
+				u.setGender(rs.getString(6));
+				u.setNic(rs.getString(7));
+				u.setPic(rs.getString(8));	
 			}
 				
 		} catch (ClassNotFoundException | SQLException e) {

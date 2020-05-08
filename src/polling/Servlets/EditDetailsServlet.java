@@ -49,7 +49,7 @@ public class EditDetailsServlet extends HttpServlet {
 		
 		User user = new User();
 		String oldPwd = "Your password..";
-		String msg = "*You must enter your current password to perform this action!!";
+		String msg = "*Check your current password to perform this action!!";
 		
 		user.setName(request.getParameter("name"));
 		user.setPassword(request.getParameter("newPwd"));
@@ -58,13 +58,14 @@ public class EditDetailsServlet extends HttpServlet {
 		oldPwd = request.getParameter("crtPwd");			
 		
 		IuserServices iuserServices = new UserServices();
+		User u = iuserServices.getUserByEmail(user);
 		
 		RequestDispatcher dispatcher;
 		
 		String action = request.getParameter("submit");
 		
 		if(action.equals("Save")){
-		if(!oldPwd.isEmpty()){	
+		if((!oldPwd.isEmpty()) && (u.getPassword().equals(oldPwd))){
 		if(!user.getName().isEmpty()){
 			iuserServices.updateUserProfile(user, oldPwd);
 			
@@ -96,7 +97,7 @@ public class EditDetailsServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 		}
 		else{			
-			if(!oldPwd.isEmpty()){
+			if((!oldPwd.isEmpty()) && (u.getPassword().equals(oldPwd))){
 			user.setPassword(request.getParameter("crtPwd"));
 			user = iuserServices.getUser(user);
 			

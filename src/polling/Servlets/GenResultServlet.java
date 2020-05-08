@@ -9,21 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Models.User;
-import polling.Services.IuserServices;
-import polling.Services.UserServices;
-
 /**
- * Servlet implementation class DirectUserServlet
+ * Servlet implementation class GenResultServlet
  */
-@WebServlet("/DirectUserServlet")
-public class DirectUserServlet extends HttpServlet {
+@WebServlet("/GenResultServlet")
+public class GenResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DirectUserServlet() {
+    public GenResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,32 +36,14 @@ public class DirectUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int id;
+		id = Integer.parseInt(request.getParameter("election"));
 		
-		User user = new User();
+		request.setAttribute("id", id);
 		
-		user.setEmail(request.getParameter("email"));
-		
-		IuserServices iuserServices = new UserServices();
-		user = iuserServices.getUserByEmail(user);
-		
-		request.setAttribute("user", user);
-		RequestDispatcher dispatcher;
-		
-		String action = request.getParameter("choose");
-		
-		if(action.equals("VOTER")){
-			//boolean check exist by method
-			//if() voter is not registered
-		dispatcher = getServletContext().getRequestDispatcher("/Voter.jsp");
-			//else to voters profile if registered
-		}
-		else{
-			//boolean check exist by method
-			//if() candidate is not registered
-			dispatcher = getServletContext().getRequestDispatcher("/Candidate.jsp");
-			//else to candidate profile if registered
-		}
-		dispatcher.forward(request, response);
+		RequestDispatcher ds = getServletContext().getRequestDispatcher("/ShowResults.jsp");
+		ds.forward(request, response);
 	}
 
 }

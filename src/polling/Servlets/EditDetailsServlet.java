@@ -74,7 +74,9 @@ public class EditDetailsServlet extends HttpServlet {
 		if(iuserServices.CheckExist(user)){
 			user = iuserServices.getUser(user);
 			
+			msg = "Update Successful!";
 			request.setAttribute("user", user);
+			request.setAttribute("msg", msg);
 		}
 		}
 		else{
@@ -98,11 +100,19 @@ public class EditDetailsServlet extends HttpServlet {
 			user.setPassword(request.getParameter("crtPwd"));
 			user = iuserServices.getUser(user);
 			
-			//if() to check user's relation to other tables
+			String dest = "/Home.jsp";
+			if(iuserServices.checkReg(user.getId())){
 			iuserServices.RemoveUser(user);
-			//else and set msg attribute
+			dest = "/index.jsp";
+			}
+			else{
+				msg = "User can't be removed!";
+				request.setAttribute("user", user);
+			    request.setAttribute("msg", msg);
+			}
 			
-			dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher = getServletContext().getRequestDispatcher(dest);
+			
 			}
 			else{
 			user = iuserServices.getUserByEmail(user);

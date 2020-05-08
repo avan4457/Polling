@@ -31,6 +31,7 @@ if(res == null)
 <form action="AddUserServlet" method="POST">
 <div class="form-group" id="frmSignup">
 <h2 style="text-align:center;"><b>New? Register Now..</b></h2>
+<p>*<%=res %></p><br>
 Full Name : <input type="Text" name="name" class="form-control" placeholder="eg:John Smith"/><%=msg %><br><br>
 NIC No : <input type="text" name="nic" class="form-control" placeholder="eg:982033567v"/><%=msg %><br><br>
 Email : <input type="text" name="email" class="form-control" placeholder="eg:john@sample.com" /><%=msg %><br><br>
@@ -39,7 +40,6 @@ Phone Number : <input type="text" name="phone" class="form-control" placeholder=
 Gender :<input type="radio" name="gender" value="Female"> Female 
 <input type="radio" name="gender" value="Male"> Male<br><br>
 <input type="submit" name="submit" value="Register" class="btn btn-primary">
-<p>*<%=res %></p>
 </div>
 </form>
 
@@ -57,6 +57,7 @@ if(resu == null)
 Email : <input type="text" name="email" class="form-control" placeholder="eg:john@sample.com" /><br><br>
 Password : <input type="password" name="password" class="form-control" placeholder="Password.." /><br><br>
 <input type="submit" name="submit" value="Login" class="btn btn-primary"><p><%=resu %></p>
+<a href="ForgotPass.jsp" >Forgot Password?</a>
 </div>
 </form>
 </div>

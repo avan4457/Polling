@@ -34,7 +34,8 @@ if(res == null)
 
 <form action="EditDetailsServlet" method="POST">
 <div class="form-group" id="frm-left">
-<h1>Login Details</h1><br><br>
+<h1>Login Details</h1>
+<p><%=res %></p><br>
 Name: <input type="text" name="name" value=<%=user.getName() %> class="form-control" /> <br>
 NIC: <%=user.getNic() %><br><br>
 Gender: <%=user.getGender() %><br><br>
@@ -45,7 +46,6 @@ New Password: <input type="password" name="newPwd" class="form-control" /><br>
 Phone Number: <input type="text" name="phone" value=<%=user.getPhoneNumber() %> class="form-control" /><br><br>
 <input type="submit" name="submit" value="Save" class="btn btn-primary" style="float:center;margin-left:5px;" />
 <input type="submit" name="submit" value="Delete" class="btn btn-primary" style="float:left;background-color:red;" />
-<p><%=res %></p>
 </div>
 </form>
 

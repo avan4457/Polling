@@ -39,4 +39,8 @@ public interface IuserServices {
 	
 	public void addProfImg(User user);
 	
+	public User getUserById(String Id);
+	
+	public boolean checkReg(String Id);
+	
 }

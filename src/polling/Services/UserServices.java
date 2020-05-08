@@ -372,5 +372,57 @@ public class UserServices implements IuserServices {
 		}
 	}
 
+
+
+	@Override
+	public User getUserById(String Id) {
+		
+		User u = new User();
+		try {
+			conn = DBConnectionUtil.getDBConnection();
+			
+			prepdStatement = conn.prepareStatement("Select * from user where Id=?");
+			
+			prepdStatement.setString(1, Id);
+			
+			ResultSet rs = prepdStatement.executeQuery();
+			
+			if(rs.next()){
+				u.setName(rs.getString(2));
+				//More to add
+			}
+				
+		} catch (ClassNotFoundException | SQLException e) {
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		
+		return u;
+	}
+
+
+
+	@Override
+	public boolean checkReg(String Id) {
+		boolean can = false;
+		try {
+			conn = DBConnectionUtil.getDBConnection();
+			
+			prepdStatement = conn.prepareStatement("select * from voter where id = ?");
+			prepdStatement.setString(1, Id);
+			ResultSet rv = prepdStatement.executeQuery();
+			
+			prepdStatement = conn.prepareStatement("select * from candidate where userId = ?");
+			prepdStatement.setString(1, Id);
+			ResultSet rc = prepdStatement.executeQuery();
+			
+			if(!rv.next() && !rc.next())
+				can = true;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			log.log(Level.SEVERE, e.getMessage());
+		}	
+		return can;
+	}
+
 	
 }

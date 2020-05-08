@@ -19,17 +19,17 @@ import polling.Services.UserServices;
 /**
  * Servlet implementation class SavePicServlet
  */
-@WebServlet("/SavePicServlet")
+@WebServlet("/ProfilePicServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
 maxFileSize = 1024 * 1024 * 10,
 maxRequestSize = 1024 * 1024 * 5)
-public class SavePicServlet extends HttpServlet {
+public class ProfilePicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SavePicServlet() {
+    public ProfilePicServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,10 +48,13 @@ public class SavePicServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		User user = new User();
-		Part part = request.getPart("pic");
-		
+		String action = request.getParameter("submit");
+		IuserServices iuserServices = new UserServices();
 		user.setEmail(request.getParameter("pemail"));
-		IuserServices iuserServices = new UserServices();		
+		
+		user = iuserServices.getUserByEmail(user);
+		if(action.equals("Save")){
+		Part part = request.getPart("pic");
 		
 		String fileName = iuserServices.getFileName(part);
 		String savepath = "C:\\Users\\avant\\OneDrive\\Desktop\\SLIIT\\OOP\\eclipseP\\Project\\WebContent\\images\\" + File.separator + fileName;
@@ -61,8 +64,11 @@ public class SavePicServlet extends HttpServlet {
 		user.setPic(fileName);
 		
 		iuserServices.addProfImg(user);		
+		}
+		else if(action.equals("Remove"))
+			iuserServices.removeProfilePic(user.getId());
 		user = iuserServices.getUserByEmail(user);
-		
+			
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home.jsp");
 		dispatcher.forward(request, response);

@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 import polling.Models.User;
 import polling.Utils.CommonConstants;
 import polling.Utils.CommonUtil;
+import polling.Utils.DBConnect;
 import polling.Utils.DBConnectionUtil;
 import polling.Utils.QueryUtil;
 /**
@@ -379,7 +380,7 @@ public class UserServices implements IuserServices {
 		
 		User u = new User();
 		try {
-			conn = DBConnectionUtil.getDBConnection();
+			conn = DBConnect.getconnection();
 			
 			prepdStatement = conn.prepareStatement("Select * from user where Id=?");
 			

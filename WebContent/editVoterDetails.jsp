@@ -13,9 +13,9 @@
    <%
 	User u = (User)request.getAttribute("user");
 %>    
-  <%
+<%--   <%
 Voter vo = (Voter) request.getAttribute("voter");
-	%> 
+	%>  --%>
 <%--  <%
 	User u = new User();
   u.setEmail("sandun@gmail.com");
@@ -28,7 +28,7 @@ Voter vo = (Voter) request.getAttribute("voter");
 %> --%> 
 <%--  <% Voter v = new Voter(); %> --%> 
 <form action="RegisterServlet" method="POST">
-	District<input type="text" name="district" value= "<%=vo.getDistrict()%>" required/><br><br>  <!-- u.getId() --> 
+	District<input type="text" name="district" required/><br><br>  <!-- u.getId() --> 
 	Status<input type="text" name="Status" value="Invalid"  readonly/><br><br>    <%--  <!--  <%=vo.getStatus() %>--> --%>
 	<input type="hidden" name="id" value= "<%=u.getId() %>"  readonly/><br><br>      <!-- meka wenas wnawada -->
 	Password<input type="password" name="password" value= "<%=u.getPassword() %>" readonly /><br><br>

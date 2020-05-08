@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.User;
+import polling.Models.Voter;
 import polling.Services.IuserServices;
+import polling.Services.IvoterServices;
 import polling.Services.UserServices;
+import polling.Services.VoterServices;
 
 /**
  * Servlet implementation class DirectUserServlet
@@ -54,10 +57,14 @@ public class DirectUserServlet extends HttpServlet {
 		String action = request.getParameter("choose");
 		
 		if(action.equals("VOTER")){
-			//boolean check exist by method
-			//if() voter is not registered
-		dispatcher = getServletContext().getRequestDispatcher("/Voter.jsp");
-			//else to voters profile if registered
+			IvoterServices iv = new VoterServices();
+			Voter voter = iv.getVoterByID(user.getId());
+			if(voter.getDistrict() == null)
+				dispatcher = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
+			else{
+				request.setAttribute("voter", voter);
+				dispatcher = getServletContext().getRequestDispatcher("/voterProfile.jsp");
+			}
 		}
 		else{
 			//boolean check exist by method

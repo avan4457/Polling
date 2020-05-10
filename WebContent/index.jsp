@@ -57,7 +57,7 @@ if(resu == null)
 Email : <input type="text" name="email" class="form-control" placeholder="eg:john@sample.com" /><br><br>
 Password : <input type="password" name="password" class="form-control" placeholder="Password.." /><br><br>
 <input type="submit" name="submit" value="Login" class="btn btn-primary"><p><%=resu %></p>
-<a href="ForgotPass.jsp" >Forgot Password?</a>
+<input type="submit" name ="submit" value="forgot Password" >
 </div>
 </form>
 </div>

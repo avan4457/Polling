@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IT190202822 -->
+<Querys>
+
+	<!-- Create a election table-->
+	<query id = "create_election_table">
+	<![CDATA[
+					CREATE TABLE election (
+  						 electionID  INT NOT NULL AUTO_INCREMENT,
+  						 electionName  VARCHAR(45) NOT NULL,
+  						 electionType  VARCHAR(45) NOT NULL DEFAULT 'Presidential',
+  						 startDate  DATETIME NOT NULL,
+  						 endDate  DATETIME NOT NULL,
+  						 PRIMARY KEY (electionID)
+  						 )
+  		]]>
+	</query>
+	<!-- DROP Table Election Query -->
+	<query id = "drop_table">
+	<![CDATA[
+			DROP TABLE IF EXISTS election
+	]]>
+	</query>
+	<!-- Insert details to the election table -->
+	<query id = "insert_election">
+	
+	<![CDATA[
+			insert into election values(?,?,?,?,?)
+	]]>
+	
+	</query>
+	<!-- Select particular election id query -->
+	<query id = "election_by_id">
+			select * from election where election.electionID = ?
+	</query>
+	<!-- Delete particular election by id query -->
+	<query id = "remove_election">
+	
+		<![CDATA[
+			delete from election where election.electionID = ?
+		]]>
+	
+	</query>
+	<!-- Update election details by id query -->
+	<query id = "update_election">
+		<![CDATA[
+			update election as e
+			set e.electionName = ? , e.electionType = ?, e.startDate = ?, e.endDate = ?
+			where e.electionID = ?
+		]]>
+	</query>
+	<!-- Get election id query -->
+	<query id = "election_ids">
+		<![CDATA[
+			select * from election where electionID = ?
+		]]>
+	</query>
+	<!-- select all election data query -->
+	<query id = "select_all_election">
+		<![CDATA[
+			select * from election
+		]]>
+	</query>
+	
+
+</Querys>

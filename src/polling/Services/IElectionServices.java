@@ -53,5 +53,7 @@ public interface IElectionServices {
 
 	ArrayList<Election> getElectionsByClosingDate();
 
+	ArrayList<String> genResults(int elecId);
+
 
 }

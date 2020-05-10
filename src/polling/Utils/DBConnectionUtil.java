@@ -1,34 +1,24 @@
 package polling.Utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Properties;
 
 public class DBConnectionUtil extends CommonUtil {
 
-	private static Connection connection;
+	private static Connection con;
 
-	public DBConnectionUtil() {
-		
+	private DBConnectionUtil() {
 	}
 
 	public static Connection getDBConnection() throws ClassNotFoundException, SQLException {
 
-		if (connection == null || connection.isClosed()) {
-			Class.forName(properties.getProperty(CommonConstants.Driver_Name));
-			connection = DriverManager.getConnection(properties.getProperty(CommonConstants.Url),
-					properties.getProperty(CommonConstants.Username),properties.getProperty(CommonConstants.Password));
+		if (con == null || con.isClosed()) {
+			Class.forName(properties.getProperty(CommonConstants.DRIVER_NAME));
+			con = DriverManager.getConnection(properties.getProperty(CommonConstants.URL),
+					properties.getProperty(CommonConstants.USER_NAME),
+					properties.getProperty(CommonConstants.PASSWORD));
 		}
-		return connection;
+		return con;
 	}
+
 }
-
-
-
-
-
-
-
-
-
-

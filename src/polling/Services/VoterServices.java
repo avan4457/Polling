@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.Voter;
-import polling.Utils.DBConnect;
+import polling.Utils.DBConnectionUtil;
 
 import java.sql.Statement;
 
@@ -22,11 +22,9 @@ public class VoterServices implements IvoterServices {
 	private static ResultSet rs ;
 	@Override
 	public void RegisterVoter(Voter v) {
-	
-		con = DBConnect.getconnection();
 		
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement("select * from voter where id=?");
 			ps.setString(1,v.getId());
 			rs=ps.executeQuery();
@@ -59,7 +57,7 @@ public class VoterServices implements IvoterServices {
 				
 			
 			
-		} catch (SQLException e ) {
+		} catch (SQLException | ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 		
@@ -71,7 +69,7 @@ public class VoterServices implements IvoterServices {
 		ArrayList<Election> arr = new ArrayList<Election>();
 		 
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*stmt = con.createStatement();*/
 			/*String sql = "select name from Election where starting_date <=SYSDATE() and ending_date>=SYSDATE()";*/
 			/*rs=stmt.executeQuery(sql);*/
@@ -80,11 +78,11 @@ public class VoterServices implements IvoterServices {
 			
 			while(rs.next()){
 				Election election= new Election();
-				election.setId(rs.getInt(1));
-				election.setName(rs.getString(2));
+				election.setElectionID(rs.getInt(1));
+				election.setElectionName(rs.getString(2));
 				arr.add(election);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
@@ -97,7 +95,7 @@ public class VoterServices implements IvoterServices {
 		// TODO Auto-generated method stub
 		boolean istrue = false;
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*stmt = con.createStatement();*/
 			/*String sql = "select district from voter where id=?";*/
 			ps = con.prepareStatement("select * from voter where id=?");
@@ -112,7 +110,7 @@ public class VoterServices implements IvoterServices {
 			else{
 				istrue=false;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -128,12 +126,12 @@ public class VoterServices implements IvoterServices {
 	public ArrayList<Voter> getVoterDetails(String id){
 		Voter va =  new Voter();
 		ArrayList<Voter> ar = new ArrayList<>();
-		con = DBConnect.getconnection();
 		try {
+			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement("select * from voter where id=?");
 			ps.setString(1,id);
 			rs=ps.executeQuery();
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -163,7 +161,7 @@ public class VoterServices implements IvoterServices {
 
 		Voter voter = new Voter();
 		try{
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*
 			 * Before fetching employee it checks whether employee ID is
 			 * available
@@ -193,7 +191,7 @@ public class VoterServices implements IvoterServices {
 				voter.setStatus(rs.getString(2));
 			}
 		}
-		catch (SQLException e) {
+		catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -206,7 +204,7 @@ public class VoterServices implements IvoterServices {
 		// TODO Auto-generated method stub
 		boolean istrue = false;
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*
 			 * Before fetching employee it checks whether employee ID is
 			 * available
@@ -233,7 +231,7 @@ public class VoterServices implements IvoterServices {
 			else{
 				istrue=false;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -257,12 +255,11 @@ public class VoterServices implements IvoterServices {
 	
 	public int getElectionId(String Election){
 		int id=0;
-		con = DBConnect.getconnection();
 		/*stmt = con.createStatement();*/
 		/*String sql = "select name from Election where starting_date <=SYSDATE() and ending_date>=SYSDATE()";*/
 		/*rs=stmt.executeQuery(sql);*/
 		try {
-			
+			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement("select * from election where startDate <=SYSDATE() and endDate>=SYSDATE() and electionName = ?");
 			ps.setString(1,Election);
 			rs=ps.executeQuery();
@@ -270,7 +267,7 @@ public class VoterServices implements IvoterServices {
 			while(rs.next()){
 			 id=rs.getInt(1);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -5,8 +5,9 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import polling.Utils.DBConnectionUtil;
+
 import polling.Models.Candidate;
-import polling.Utils.DBConnect;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,7 +69,7 @@ public class displyCandidate {
 
 		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*
 			 * Before fetching employee it checks whether employee ID is
 			 * available
@@ -109,7 +110,8 @@ public class displyCandidate {
 			 * all employees
 			 */
 		} 
-		}catch (SQLException e) {
+			
+		}catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
@@ -122,7 +124,7 @@ public class displyCandidate {
 
 		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			/*
 			 * Before fetching employee it checks whether employee ID is
 			 * available
@@ -164,7 +166,7 @@ public class displyCandidate {
 			 * all employees
 			 */
 		
-		}catch (SQLException e) {
+		}catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
@@ -175,7 +177,7 @@ public class displyCandidate {
 	public static ArrayList<String> validate2(String Election,String id,String Eid){
 		ArrayList<String> par= new ArrayList<String>();
 		try {
-			con = DBConnect.getconnection();
+			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement("select * from voter where id=?");
 			ps.setString(1,id);
 			rs=ps.executeQuery();
@@ -202,7 +204,7 @@ public class displyCandidate {
 				
 		
 		 
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -211,8 +213,9 @@ public class displyCandidate {
 		return par;
 	}   
 	public static void addVoter(String Election,String party,String id,String Eid,String Cid){
-		con = DBConnect.getconnection();
+		
 		try {
+			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement("insert into votes values(?,?)");
 			ps.setInt(1,Integer.parseInt(Eid));
 			ps.setString(2,id);
@@ -245,7 +248,7 @@ public class displyCandidate {
 			else{
 				
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

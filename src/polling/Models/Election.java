@@ -1,40 +1,114 @@
 package polling.Models;
 
-import java.sql.Date;
+import java.time.*;
+
+/**
+ * This Election class to get and set data
+ * @author IT19020822 DilshanK.G.T
+ *
+ */
 
 public class Election {
-	int Id;
-	String Name,Type;
-	Date StartDate,EndDate;
-	public int getId() {
-		return Id;
+	
+	private int ElectionID;
+	
+	private String ElectionName;
+	
+	private String ElectionType;
+	
+	private LocalDate StartDate;
+	
+	private LocalDate EndDate;
+	
+
+	/**
+	 * 
+	 * @return election Id
+	 */
+
+	public int getElectionID() {
+		return ElectionID;
 	}
-	public void setId(int id) {
-		Id = id;
+	
+	/**
+	 * 
+	 * @param electionID
+	 */
+	public void setElectionID(int electionID) {
+		ElectionID = electionID;
 	}
-	public String getName() {
-		return Name;
+	
+	/**
+	 * 
+	 * @return election Name
+	 */
+
+	public String getElectionName() {
+		return ElectionName;
 	}
-	public void setName(String name) {
-		Name = name;
+	
+	/**
+	 * 
+	 * @param electionName
+	 */
+
+	public void setElectionName(String electionName) {
+		ElectionName = electionName;
 	}
-	public String getType() {
-		return Type;
+	
+	/**
+	 * 
+	 * @return election Type
+	 */
+
+	public String getElectionType() {
+		return ElectionType;
 	}
-	public void setType(String type) {
-		Type = type;
+	
+	/**
+	 * 
+	 * @param electionType
+	 */
+	
+	public void setElectionType(String electionType) {
+		ElectionType = electionType;
 	}
-	public Date getStartDate() {
+	
+	/**
+	 * 
+	 * @return election start date 
+	 */
+
+	public LocalDate getStartDate() {
 		return StartDate;
 	}
-	public void setStartDate(Date startDate) {
+	
+	/**
+	 * 
+	 * @param startDate
+	 */
+	
+	public void setStartDate(LocalDate startDate) {
 		StartDate = startDate;
 	}
-	public Date getEndDate() {
+
+	/**
+	 * 
+	 * @return election end date
+	 */
+	
+	public LocalDate getEndDate() {
 		return EndDate;
 	}
-	public void setEndDate(Date endDate) {
+	
+	/**
+	 * 
+	 * @param endDate
+	 */
+	public void setEndDate(LocalDate endDate) {
 		EndDate = endDate;
 	}
 	
+	
+
 }

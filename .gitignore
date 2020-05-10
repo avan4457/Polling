@@ -3,3 +3,7 @@ src/polling/Utils/DBConnect.java
 .project
 .classpath
 build
+/bin/
+src\polling\Utils\DBConnectionUtil.java
+src\polling\Utils\config.properties
+

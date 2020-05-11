@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.User;
 import polling.Models.Voter;
+import polling.Services.IuserServices;
 import polling.Services.IvoterServices;
+import polling.Services.UserServices;
 import polling.Services.VoterServices;
 
 
@@ -47,21 +49,17 @@ public class RegisterServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		User u = new User();
-		u.setId(request.getParameter("id"));
-		u.setEmail(request.getParameter("email"));
-		u.setGender(request.getParameter("gender"));
-		u.setName(request.getParameter("name"));
-		u.setNic(request.getParameter("nic"));
-		u.setPassword(request.getParameter("password"));
-		u.setPhoneNumber(request.getParameter("phoneNumber"));
+		String id=request.getParameter("id");
+		
 		Voter v = new Voter();
 		
-		v.setId(request.getParameter("id"));
+		v.setId(id);
 		v.setDistrict(request.getParameter("district"));
 		//v.setStatus(request.getParameter("Status"));
 		v.setStatus("Invalid");
 		/*v.setId("c0123456");*/
-		
+		IuserServices iu = new UserServices();
+		User user=iu.getUserById(id);
 		
 		//request.setAttribute("v", v);
 		
@@ -70,7 +68,7 @@ public class RegisterServlet extends HttpServlet {
 		iv.RegisterVoter(v);		
 		Voter voter =iv. getVoterByID(v.getId());
 		request.setAttribute("voter", voter);
-		request.setAttribute("user", u);
+		request.setAttribute("user", user);
 		
 		RequestDispatcher d = getServletContext().getRequestDispatcher("/voterProfile.jsp");
 		d.forward(request, response);

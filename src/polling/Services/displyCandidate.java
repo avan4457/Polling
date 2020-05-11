@@ -87,6 +87,7 @@ public class displyCandidate {
 					ps.setString(1,district);
 					ps.setString(2,party);
 					ps.setString(3,"Valid");
+					ps.setString(4,Eid);
 					
 					/*String sql1 = "selct * from candidate where election = '"+Election+"' and id='"+Vaa+"' ";*/
 					rs=ps.executeQuery();
@@ -210,18 +211,20 @@ public class displyCandidate {
 		
 		return par;
 	}   
-	public static void addVoter(String Election,String party,String id,String Eid,String Cid){
+	public static boolean addVoter(String Election,String party,String id,String Eid,String Cid){
+		boolean istrue=false;
 		con = DBConnect.getconnection();
 		try {
 			ps = con.prepareStatement("insert into votes values(?,?)");
 			ps.setInt(1,Integer.parseInt(Eid));
 			ps.setString(2,id);
-			ps.executeUpdate();
+			ps.execute();
 			
 			ps = con.prepareStatement("select * from results where electionId=? and userId =?");
 			ps.setInt(1,Integer.parseInt(Eid));
 			ps.setString(2,Cid);
 			rs=ps.executeQuery();
+			istrue=true;
 			if(rs.next()){
 				//int coun=rs.getInt(3);
 				//problem update candidate count 
@@ -232,25 +235,95 @@ public class displyCandidate {
 				ps.executeUpdate();
 			}
 			else{
-				ps = con.prepareStatement("insert results values(?,?,?)");
+				ps = con.prepareStatement("insert into results values(?,?,?)");
 				ps.setInt(1,Integer.parseInt(Eid));
 				ps.setString(2,Cid);
 				ps.setInt(3, 1);// problem
-				
+				ps.execute();
 				
 			}
 			if(Election.equals("Parliament")){
-				//problem party count
+				ps = con.prepareStatement("select * from partyvotes where electionId=? and party =?");
+				ps.setInt(1,Integer.parseInt(Eid));
+				ps.setString(2,party);
+				rs=ps.executeQuery();
+				if(rs.next()){
+					ps = con.prepareStatement("update partyvotes set count = count + 1 where electionId = ? and  party =?");
+					//ps.setInt(1, coun);
+					ps.setInt(1,Integer.parseInt(Eid));
+					ps.setString(2,party);
+					ps.executeUpdate();
+				}
+				else{
+					ps = con.prepareStatement("insert into partyvotes values(?,?,?)");
+					ps.setInt(1,Integer.parseInt(Eid));
+					ps.setString(2,party);
+					ps.setInt(3, 1);// problem
+					ps.execute();
+				}
 			}
 			else{
-				
+				istrue=true;
 			}
+			istrue=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return istrue;
 	} 
+	public static ArrayList<Candidate> validate4(String Cid,String Eid) {
+
+		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
+		try {
+			con = DBConnect.getconnection();
+			/*
+			 * Before fetching employee it checks whether employee ID is
+			 * available
+			 */
+			/*ps = con.prepareStatement("selct * from voter where id=? ");
+			ps.setString(1,id);
+			rs=ps.executeQuery();*/
+			
+			/*if(rs.next()){
+				String  status=rs.getString(2);
+				if(status.equals("Valid")){*/		//employeeID != null && !employeeID.isEmpty()
+					//String namm = "passs";
+					ps = con.prepareStatement("select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =? "); ///election = ? and 
+					ps.setString(1,Eid);
+					ps.setString(2,Cid);
+					/*ps.setString(1,Election);*/
+					/*String sql1 = "selct * from candidate where election = '"+Election+"' and id='"+Vaa+"' ";*/
+					rs=ps.executeQuery();
+					
+					//String Vaa = "C01";
+					//String sql1 = "update candidate set name ='"+namm+"' , where id ='"+Vaa+"' ";
+					//int rs= stmt.executeUpdate(sql1);
+					
+					while(rs.next()){
+						Candidate candidate = new Candidate();
+						candidate.setId(rs.getString(1));
+						candidate.setName(rs.getString(2)); 
+						candidate.setParty(rs.getString(3));
+						candidate.setNo(rs.getInt(4));
+						candidateList.add(candidate);
+						
+					}
+				/*}*/
+				/*else{
+					
+				}
+			
+			 * If employee ID is not provided for get employee option it display
+			 * all employees
+			 */
+		
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return candidateList;
 	/*public static List<Voter> getProfileDetails(String Id){
 		ArrayList<Voter> vo = new ArrayList<>();
 		
@@ -280,4 +353,5 @@ public class displyCandidate {
 		
 		return vo;
 	}*/
+}
 }

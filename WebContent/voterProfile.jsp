@@ -83,7 +83,7 @@ Voter vo = (Voter) request.getAttribute("voter");
 			
 			<tr>
 					<td>password</td>
-					<td><%=u.getPassword() %></td>
+					<td><%=u.getPassword()%></td>
 					
 			</tr>
 			
@@ -112,6 +112,10 @@ Voter vo = (Voter) request.getAttribute("voter");
 		<form method="post" action="displyElectionsServlet">
 			<input type="hidden" name="id" value="<%=u.getId()%>" >
 			<input type="submit" value="Vote for Election">
+		</form>
+		<form method="post" action="deleteVoterServlet">
+			<input type="hidden" name="id" value="<%=u.getId()%>" >
+			<input type="submit" value="delete my voter Account">
 		</form>
 		 <%-- <form>
 			<input type="hidden" name="id" value=<%v.getId() %> >

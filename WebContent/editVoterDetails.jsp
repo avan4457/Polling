@@ -7,15 +7,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="editVoter.css">
 <title>Insert title here</title>
 </head>
 <body>
    <%
 	User u = (User)request.getAttribute("user");
 %>    
-<%--   <%
+   <%
 Voter vo = (Voter) request.getAttribute("voter");
-	%>  --%>
+	%>  
 <%--  <%
 	User u = new User();
   u.setEmail("sandun@gmail.com");
@@ -27,17 +29,17 @@ Voter vo = (Voter) request.getAttribute("voter");
  	
 %> --%> 
 <%--  <% Voter v = new Voter(); %> --%> 
-<form action="RegisterServlet" method="POST">
-	District<input type="text" name="district" required/><br><br>  <!-- u.getId() --> 
-	Status<input type="text" name="Status" value="Invalid"  readonly/><br><br>    <%--  <!--  <%=vo.getStatus() %>--> --%>
-	<input type="hidden" name="id" value= "<%=u.getId() %>"  readonly/><br><br>      <!-- meka wenas wnawada -->
-	Password<input type="password" name="password" value= "<%=u.getPassword() %>" readonly /><br><br>
-	Name<input   type="text" name="name" value= "<%=u.getName() %>" readonly><br><br>
-	Email<input type="text"  name="email" value= "<%=u.getEmail() %>" readonly><br><br>
-	phoneNumber<input type="text"  name="phoneNumber" value="<%=u.getPhoneNumber() %>" readonly><br><br>
-	NIC<input type="text"  name="nic" value= "<%=u.getNic() %>"  readonly><br><br>
-	gender<input type="text" name="gender" value= "<%=u.getGender() %>"  readonly><br><br>
-<input type="submit" name="submit" value="Register" />
+<form action="RegisterServlet" method="POST" id="form1">
+	District<input type="text" name="district" class="form-control" value="<%=vo.getDistrict() %>" required/><br><br>  <!-- u.getId() --> 
+	Status<input type="text" name="Status" class="form-control"value="Invalid"  readonly/><br><br>    <%--  <!--  <%=vo.getStatus() %>--> --%>
+	<input type="hidden" name="id" class="form-control"value= "<%=u.getId() %>"  readonly/><br><br>      <!-- meka wenas wnawada -->
+	Password<input type="password" name="password" class="form-control"value= "<%=u.getPassword() %>" readonly /><br><br>
+	Name<input   type="text" name="name" class="form-control"value= "<%=u.getName() %>" readonly><br><br>
+	Email<input type="text"  name="email" class="form-control"value= "<%=u.getEmail() %>" readonly><br><br>
+	phoneNumber<input type="text"  name="phoneNumber" class="form-control"value="<%=u.getPhoneNumber() %>" readonly><br><br>
+	NIC<input type="text"  name="nic" class="form-control" value= "<%=u.getNic() %>"  readonly><br><br>
+	gender<input type="text" name="gender" class="form-control" value= "<%=u.getGender() %>"  readonly><br><br>
+<input type="submit" name="submit" class="btn btn-primary" value="Register" />
 </form>
 </body>
 </html>

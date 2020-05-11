@@ -9,30 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Models.User;
 import polling.Models.Voter;
-import polling.Services.IuserServices;
 import polling.Services.IvoterServices;
-import polling.Services.UserServices;
 import polling.Services.VoterServices;
 
-
 /**
- * Servlet implementation class updateServlets
+ * Servlet implementation class deleteVoterServlet
  */
-@WebServlet("/updateServlets")
-public class updateServlets extends HttpServlet {
+@WebServlet("/deleteVoterServlet")
+public class deleteVoterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateServlets() {
+    public deleteVoterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,17 +39,15 @@ public class updateServlets extends HttpServlet {
 		boolean isTrue=iv.upda();*/
 		/* if(isTrue == true){*/
 		
-	IvoterServices iv = new VoterServices();		
+		IvoterServices iv = new VoterServices();		
 		Voter voter =iv. getVoterByID(id);
 		request.setAttribute("voter", voter);
 		
-		IuserServices iu = new UserServices();
-		User user=iu.getUserById(id);
-		request.setAttribute("user", user);
+		RequestDispatcher d = getServletContext().getRequestDispatcher("/deleteAccount.jsp");
+		d.forward(request, response);
 		
-				RequestDispatcher d = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
-				d.forward(request, response);
-			/*}*/
+		
 	}
 
+	
 }

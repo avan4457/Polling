@@ -59,8 +59,12 @@ public class DirectUserServlet extends HttpServlet {
 		if(action.equals("VOTER")){
 			IvoterServices iv = new VoterServices();
 			Voter voter = iv.getVoterByID(user.getId());
-			if(voter.getDistrict() == null)
+			String district = " ";
+			if(voter.getDistrict() == null){
+				voter.setDistrict(district);
+				request.setAttribute("voter", voter);
 				dispatcher = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
+			}
 			else{
 				request.setAttribute("voter", voter);
 				dispatcher = getServletContext().getRequestDispatcher("/voterProfile.jsp");

@@ -187,7 +187,7 @@ public class VoterServices implements IvoterServices {
 			}*/
 			rs=ps.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				voter.setId(rs.getString(1));
 				voter.setDistrict(rs.getString(3));
 				voter.setStatus(rs.getString(2));
@@ -276,6 +276,29 @@ public class VoterServices implements IvoterServices {
 		}
 		
 		return id;
+	}
+	public boolean deleteVoterById(String id){
+		boolean istrue = false;
+		
+		con = DBConnect.getconnection();
+		try {
+			ps = con.prepareStatement("delete from voter  where id= ?");
+			ps.setString(1,id);
+			int r=ps.executeUpdate();
+			if(r>0){
+				istrue=true;
+			}
+			else{
+				istrue = false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return istrue;
 	}
 	/*private ArrayList<Candidate> actionOnCandidate(String Election,String id) {
 

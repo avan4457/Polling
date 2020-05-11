@@ -1,6 +1,7 @@
 package polling.Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import polling.Models.Candidate;
 import polling.Services.displyCandidate;
 
 /**
@@ -37,10 +39,30 @@ public class addParliamentResultServlet extends HttpServlet {
 		String Eid = request.getParameter("Eid");
 		String Election = request.getParameter("Election");
 		
-		displyCandidate.addVoter(Election,party,id,Eid,Cid);
+		boolean istrue = displyCandidate.addVoter(Election,party,id,Eid,Cid);
 		
-		RequestDispatcher d = getServletContext().getRequestDispatcher("/selectUser.jsp");
-		d.forward(request, response);
+		ArrayList<Candidate>candidate = displyCandidate.validate4(Cid,Eid);
+		request.setAttribute("candidate", candidate);
+		
+		request.setAttribute("id",id);
+		request.setAttribute("party",party);
+		request.setAttribute("Eid",Eid);
+		request.setAttribute("Election",Election);
+		
+		if(istrue == true){
+			String re ="Vote has been entered successfully ";
+			request.setAttribute("re", re);
+			RequestDispatcher d = getServletContext().getRequestDispatcher("/Candidatelist.jsp");
+			d.forward(request, response);
+		}
+		else{
+			String re ="Vote has been entered unsuccessfully ";
+			request.setAttribute("re", re);
+			RequestDispatcher d = getServletContext().getRequestDispatcher("/Candidatelist.jsp");
+			d.forward(request, response);
+		}
+	
 	}
+		
 
 }

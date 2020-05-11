@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		
 		response.setContentType("text/html");
-		User u = new User();
+		/*User u = new User();*/
 		String id=request.getParameter("id");
 		
 		Voter v = new Voter();
@@ -59,14 +59,14 @@ public class RegisterServlet extends HttpServlet {
 		v.setStatus("Invalid");
 		/*v.setId("c0123456");*/
 		IuserServices iu = new UserServices();
-		User user=iu.getUserById(id);
+		User user=iu.getUserById(id);	
 		
 		//request.setAttribute("v", v);
 		
 		IvoterServices iv = new VoterServices();
 		
 		iv.RegisterVoter(v);		
-		Voter voter =iv. getVoterByID(v.getId());
+		Voter voter =iv. getVoterByID(id);
 		request.setAttribute("voter", voter);
 		request.setAttribute("user", user);
 		

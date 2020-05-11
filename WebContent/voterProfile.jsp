@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="voterProfileStyle.css" >
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -50,6 +51,9 @@
 <%
 Voter vo = (Voter) request.getAttribute("voter");
 	%>
+	
+	<img src="images/<%=u.getPic()%>" width="70" height="70" alt="Profile picture" >
+	
 		<table>
 			<tr>
 					<td>NAME </td>

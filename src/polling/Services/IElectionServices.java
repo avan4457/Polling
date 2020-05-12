@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import polling.Models.Election;
 
+
+
 /**
  * 
  * @author IT19020822 Dilshan K.G.T
@@ -17,6 +19,12 @@ public interface IElectionServices {
 	
 	public static final Logger logr = Logger.getLogger(IElectionServices.class.getName());
 
+	/**
+	 * 
+	 * generate result
+	 */
+	public ArrayList<Election> getElectionsByClosingDate();
+	public ArrayList<String> genResults(int elecId);
 	
 	/**
 	 * Get an particular election

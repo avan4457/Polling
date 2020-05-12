@@ -1,10 +1,9 @@
 package polling.Utils;
 
-
-
 public class CommonConstants {
 	
-	
+	/*--------------------------COMMISSIONER-----------------------------*/
+  
 	public static final String QUERY_XML = "queryfilepath";
 	public static final String PROPERTY_FILE = "config.properties";
 	public static final String ATT_ID = "id";
@@ -28,11 +27,47 @@ public class CommonConstants {
 	public static final int INDEX_FIVE = 5;
 	public static final int ELECTION_ID_PREFIX = 0;
 	
+  /*--------------------------USER-----------------------------*/
+  
+	public static final String Url = "url";
 	
+	public static final String Driver_Name = "driverName";
 	
+	public static final String Username = "username";
+	
+	public static final String Password = "password";
+	
+	public static final String Query_xml = "queryFilePath";
+	
+	public static final String Tag_Name = "Query";
+	
+	public static final String Attr_Id = "id";
+	
+	public static final String Property_File = "config.properties";
+	
+	public static final String Query_Id_Create_Table = "Create_Table";
+	
+	public static final String Query_Id_Insert_User = "Insert_User";
+	
+	public static final String Query_Id_Select_User_By_MailandPW = "Select_User_by_emailandPW";
+		
+	public static final String Query_Id_Select_User_By_mail = "Select_User_by_email";
 
+	public static final String Admin_Email = "admin@polling.lk";
+	
+	public static final String Commissioner_Mail = "com@gov.lk";
+	
+	public static final String Query_Id_Update_User = "Update_User_Details";
+	
+	public static final String Query_Id_Update_User_With_Pass = "Update_User_Details_with_Password";
+	
+	public static final String Query_Id_Select_User_By_Id = "Select_user_by_id";
+
+	public static final String Query_Id_Remove_User_By_Id = "Remove_User_By_Id";
+	
 	public static final String Query_Update_Profile_Pic = "Update_Profile_Pic";
 	
+
 	/*--------------------------VOTER-----------------------------*/
 	
 	public static final String QUERY_ID_GET_VOTER = "voter_by_id";//"select * from voter where id=?"
@@ -71,7 +106,4 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_GET_CANDIDATE_LIST_WITH_status = "candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =? "
 	
-
 	}
-
-

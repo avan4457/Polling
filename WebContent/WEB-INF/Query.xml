@@ -116,6 +116,8 @@ UPDATE user set Image = ? where email = ?
 ]]>
 </Query>
 
+<!--Voter-->
+
 <Query id= "voter_by_id">
 <![CDATA[
 select * from voter where id=?
@@ -223,6 +225,7 @@ insert into partyvotes values(?,?,?)
 candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
 ]]>
 </Query>
+
 <!--Election Table Commissioner-->
 	<Query id = "create_election_table">
 	<![CDATA[
@@ -243,12 +246,10 @@ candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum fr
 	]]>
 	</Query>
 	<!-- Insert details to the election table -->
-	<Query id = "insert_election">
-	
+	<Query id = "insert_election">	
 	<![CDATA[
 			insert into election values(?,?,?,?,?)
 	]]>
-	
 	</Query>
 	<!-- Select particular election id query -->
 	<Query id = "election_by_id">
@@ -256,11 +257,9 @@ candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum fr
 	</Query>
 	<!-- Delete particular election by id query -->
 	<Query id = "remove_election">
-	
 		<![CDATA[
 			delete from election where election.electionID = ?
 		]]>
-	
 	</Query>
 	<!-- Update election details by id query -->
 	<Query id = "update_election">
@@ -282,7 +281,6 @@ candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum fr
 			select * from election
 		]]>
 	</Query>
-	
-
+  
 </Querys>
 

@@ -56,7 +56,7 @@ public class AddElectionServlet extends HttpServlet {
 
 		request.setAttribute("msg", msg);
 		//request.setAttribute("election", election);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/commissioner.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Commissioner.jsp");
                                                       
 		dispatcher.forward(request, response);
 

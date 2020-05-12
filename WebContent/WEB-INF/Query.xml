@@ -2,6 +2,7 @@
 
 <Querys>
 
+
 <Query id = "Create_Table">
  <![CDATA[
 create table user(
@@ -13,9 +14,10 @@ type varchar(50),
 constraint chk_type check(type in('admin','commissioner','candidate','voter')
 )
 ]]>
-</Query>
+	</Query>
 
 <Query id = "Insert_User">
+
 <![CDATA[
 insert into user(Id,name,email,password,phoneNumber,Gender,NIC) values(
 ?,
@@ -28,6 +30,49 @@ insert into user(Id,name,email,password,phoneNumber,Gender,NIC) values(
 )
 ]]>
 </Query>
+
+<Query id="Select_User_by_emailandPW">
+<![CDATA[
+select * from user where email = ? and password = ?
+]]>
+</Query>
+
+<Query id="Select_User_by_email">
+<![CDATA[
+select * from user where email = ?
+]]>
+</Query>
+
+<Query id="Update_User_Details">
+<![CDATA[
+update user set name = ?,phoneNumber = ? where email = ? and password = ?
+]]>
+</Query>
+
+<Query id="Update_User_Details_with_Password">
+<![CDATA[
+update user set name = ?,phoneNumber = ?,password = ? where email = ? and password = ?
+]]>
+</Query>
+
+<Query id="Select_user_by_id">
+<![CDATA[
+select * from user where Id = ?
+]]>
+</Query>
+
+<Query id="Remove_User_By_Id">
+<![CDATA[
+delete from user where Id = ?
+]]>
+</Query>
+
+<Query id="Update_Profile_Pic">
+<![CDATA[
+UPDATE user set Image = ? where email = ?
+]]>
+</Query>	
+
 
 <Query id= "Select_User_by_emailandPW">
 <![CDATA[
@@ -178,5 +223,66 @@ insert into partyvotes values(?,?,?)
 candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
 ]]>
 </Query>
+<!--Election Table Commissioner-->
+	<Query id = "create_election_table">
+	<![CDATA[
+					CREATE TABLE election (
+  						 electionID  INT NOT NULL AUTO_INCREMENT,
+  						 electionName  VARCHAR(45) NOT NULL,
+  						 electionType  VARCHAR(45) NOT NULL DEFAULT 'Presidential',
+  						 startDate  DATETIME NOT NULL,
+  						 endDate  DATETIME NOT NULL,
+  						 PRIMARY KEY (electionID)
+  						 )
+  		]]>
+	</Query>
+	<!-- DROP Table Election Query -->
+	<Query id = "drop_table">
+	<![CDATA[
+			DROP TABLE IF EXISTS election
+	]]>
+	</Query>
+	<!-- Insert details to the election table -->
+	<Query id = "insert_election">
+	
+	<![CDATA[
+			insert into election values(?,?,?,?,?)
+	]]>
+	
+	</Query>
+	<!-- Select particular election id query -->
+	<Query id = "election_by_id">
+			select * from election where election.electionID = ?
+	</Query>
+	<!-- Delete particular election by id query -->
+	<Query id = "remove_election">
+	
+		<![CDATA[
+			delete from election where election.electionID = ?
+		]]>
+	
+	</Query>
+	<!-- Update election details by id query -->
+	<Query id = "update_election">
+		<![CDATA[
+			update election as e
+			set e.electionName = ? , e.electionType = ?, e.startDate = ?, e.endDate = ?
+			where e.electionID = ?
+		]]>
+	</Query>
+	<!-- Get election id query -->
+	<Query id = "election_ids">
+		<![CDATA[
+			select * from election where electionID = ?
+		]]>
+	</Query>
+	<!-- select all election data query -->
+	<Query id = "select_all_election">
+		<![CDATA[
+			select * from election
+		]]>
+	</Query>
+	
 
 </Querys>
+

@@ -71,9 +71,9 @@ UPDATE user set Image = ? where email = ?
 ]]>
 </Query>
 
-</Querys>
 
-<!-- --- voter -->
+
+
 
 <Query id= "voter_by_id">
 <![CDATA[
@@ -182,3 +182,5 @@ insert into partyvotes values(?,?,?)
 candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
 ]]>
 </Query>
+
+</Querys>

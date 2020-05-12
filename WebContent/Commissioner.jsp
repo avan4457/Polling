@@ -128,7 +128,7 @@ ArrayList<Election> eList = ie.getElectionsByClosingDate();
 <h2>Choose the election to generate results..</h2>
 <form action="GenResultServlet" method="POST">
 <%for(Election e:eList){ %>
-<input type="radio" name="election" value=<%=e.getId() %> /><%=e.getName() %><br>
+<input type="radio" name="election" value=<%=e.getElectionID() %> /><%=e.getElectionName() %><br>
 <%} %>
 <input type="submit" name="submit" value="See Results" />
 </form>

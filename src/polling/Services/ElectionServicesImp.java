@@ -277,5 +277,17 @@ public class ElectionServicesImp implements IElectionServices {
 		}
 	}
 
+	@Override
+	public ArrayList<Election> getElectionsByClosingDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> genResults(int elecId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 

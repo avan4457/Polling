@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.election.service.ElectionServicesImp;
-import com.election.service.IElectionServices;
-import com.oop.classes.Election;
+import polling.Models.Election;
+import polling.Services.ElectionServicesImp;
+import polling.Services.IElectionServices;
 
 @WebServlet("/UpdateElectionServlet")
 public class UpdateElectionServlet extends HttpServlet {

@@ -17,7 +17,6 @@ import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.Voter;
 import polling.Utils.CommonConstants;
-import polling.Utils.DBConnect;
 import polling.Utils.DBConnectionUtil;
 import polling.Utils.QueryUtil;
 
@@ -102,8 +101,8 @@ public class VoterServices implements IvoterServices {
 			
 			while(rs.next()){
 				Election election= new Election();
-				election.setId(rs.getInt(1));
-				election.setName(rs.getString(2));
+				election.setElectionID(rs.getInt(1));
+				election.setElectionName(rs.getString(2));
 				arr.add(election);
 			}
 		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {

@@ -26,7 +26,7 @@ if(res == null)
   			<label >Choose a Election:</label>
   			<select  name="Election">
   			<%for (Election election:arr){ %>
-    			<option  ><%=election.getName() %></option><%-- value="<%=election.getName() %>" --%>
+    			<option  ><%=election.getElectionName() %></option><%-- value="<%=election.getName() %>" --%>
     			<%} %>
   			</select>
   			<!-- <input type="radio" id="male" name="gender" value="male">

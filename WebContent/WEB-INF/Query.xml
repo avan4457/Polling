@@ -222,7 +222,7 @@ insert into partyvotes values(?,?,?)
 
 <Query id= "candidate_list_with_status">
 <![CDATA[
-candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
+select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
 ]]>
 </Query>
 

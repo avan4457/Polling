@@ -24,7 +24,6 @@ public class QueryUtil {
 		nodeList = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(new File(System.getProperty("catalina.base") + "\\wtpwebapps\\Project\\WEB-INF\\UserQuery.xml"))
 				.getElementsByTagName(CommonConstants.Tag_Name);
-
 		/*
 		 * Extract the node from node list using query id query id is taken from
 		 * query node attribute

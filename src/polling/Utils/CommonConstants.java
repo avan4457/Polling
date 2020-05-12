@@ -46,4 +46,45 @@ public class CommonConstants {
 	public static final String Query_Id_Remove_User_By_Id = "Remove_User_By_Id";
 	
 	public static final String Query_Update_Profile_Pic = "Update_Profile_Pic";
-}
+	
+	/*--------------------------VOTER-----------------------------*/
+	
+	public static final String QUERY_ID_GET_VOTER = "voter_by_id";//"select * from voter where id=?"
+	
+	public static final String QUERY_ID_UPDATE_VOTER = "update_voter_by_id";//"update voter set district=?,status=? where id= ?"
+
+	public static final String QUERY_ID_INSERT_VOTER = "insert_voter";//"insert into voter values(?,?,?)"
+	
+	public static final String QUERY_ID_GET_ELECTION = "get_current_election"; //"select * from election where startDate <=SYSDATE() and endDate>=SYSDATE()"
+	
+	public static final String QUERY_ID_CHECKED_VOTES_TABLE ="checked_votes_table"; //"select * from votes where electionId= ? and userId=?  "
+	
+	public static final String QUERY_ID_GET_ELECTION_ID = "election_id_by_name"; //"select * from election where startDate <=SYSDATE() and endDate>=SYSDATE() and electionName = ?"
+	
+	public static final String QUERY_ID_DELETE_VOTER_BY_ID = "delete_voter"; // "delete from voter  where id= ?"
+	
+	public static final String QUERY_ID_GET_CANDIDATE_LIST = "candidate_list"; //"select c.userId, u.name ,c.candidateNum from candidate c,user u where (c.userId = u.Id and c.district =?) and (c.party=? and c.state =?) and c.electionId = ? ORDER BY c.candidateNum"
+	
+	public static final String QUERY_ID_GET_CANDIDATE_LIST_WITH_PARTY = "candidate_list_with_party"; //"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id  and c.state =? and c.electionId = ? ORDER BY c.candidateNum"
+	
+	public static final String QUERY_ID_GET_PARTIES="get_parties";//"select DISTINCT party from candidate  where district = ?  and  state = ? and electionId = ?"
+	
+	public static final String QUERY_ID_INSERT_VOTES ="insert_into_votes"; //"insert into votes values(?,?)"
+
+	public static final String QUERY_ID_CHECKED_RESULTS = "checked_results_table"; //"select * from results where electionId=? and userId =?"
+	
+	public static final String QUERY_ID_UPDATE_RESULTS ="update_results_table"; //"update results set count = count + 1 where electionId = ? and userId = ?"
+	
+	public static final String QUERY_ID_INSERT_RESULTS ="insert_into_results";//"insert into results values(?,?,?)"
+	
+	public static final String QUERY_ID_CHECKED_PARTYVOTES = "checked_partyvotes_table";//"select * from partyvotes where electionId=? and party =?"
+	
+	public static final String QUERY_ID_UPDATE_PARTYVOTES ="update_partyvotes_table";//"update partyvotes set count = count + 1 where electionId = ? and  party =?"
+	
+	public static final String QUERY_ID_INSERT_PARTYVOTES ="insert_into_partyvotes";//"insert into partyvotes values(?,?,?)"
+	
+	public static final String QUERY_ID_GET_CANDIDATE_LIST_WITH_status = "candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =? "
+	
+
+	}
+

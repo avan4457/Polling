@@ -71,5 +71,112 @@ UPDATE user set Image = ? where email = ?
 ]]>
 </Query>
 
-</Querys>
+<Query id= "voter_by_id">
+<![CDATA[
+select * from voter where id=?
+]]>
+</Query>
 
+<Query id= "update_voter_by_id">
+<![CDATA[
+update voter set district=?,status=? where id= ?
+]]>
+</Query>
+
+<Query id= "insert_voter">
+<![CDATA[
+insert into voter values(?,?,?)
+]]>
+</Query>
+
+<Query id= "get_current_election">
+<![CDATA[
+select * from election where startDate <=SYSDATE() and endDate>=SYSDATE()
+]]>
+</Query>
+
+<Query id= "checked_votes_table">
+<![CDATA[
+select * from votes where electionId= ? and userId=?
+]]>
+</Query>
+
+<Query id= "election_id_by_name">
+<![CDATA[
+select * from election where startDate <=SYSDATE() and endDate>=SYSDATE() and electionName = ?
+]]>
+</Query>
+
+<Query id= "delete_voter">
+<![CDATA[
+delete from voter  where id= ?
+]]>
+</Query>
+
+<Query id= "candidate_list">
+<![CDATA[
+select c.userId, u.name ,c.candidateNum from candidate c,user u where (c.userId = u.Id and c.district =?) and (c.party=? and c.state =?) and c.electionId = ? ORDER BY c.candidateNum
+]]>
+</Query>
+
+<Query id= "candidate_list_with_party">
+<![CDATA[
+select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id  and c.state =? and c.electionId = ? ORDER BY c.candidateNum
+]]>
+</Query>
+
+<Query id= "get_parties">
+<![CDATA[
+select DISTINCT party from candidate  where district = ?  and  state = ? and electionId = ?
+]]>
+</Query>
+
+<Query id= "insert_into_votes">
+<![CDATA[
+insert into votes values(?,?)
+]]>
+</Query>
+
+<Query id= "checked_results_table">
+<![CDATA[
+select * from results where electionId=? and userId =?
+]]>
+</Query>
+
+<Query id= "update_results_table">
+<![CDATA[
+update results set count = count + 1 where electionId = ? and userId = ?
+]]>
+</Query>
+
+<Query id= "insert_into_results">
+<![CDATA[
+insert into results values(?,?,?)
+]]>
+</Query>
+
+<Query id= "checked_partyvotes_table">
+<![CDATA[
+select * from partyvotes where electionId=? and party =?
+]]>
+</Query>
+
+<Query id= "update_partyvotes_table">
+<![CDATA[
+update partyvotes set count = count + 1 where electionId = ? and  party =?
+]]>
+</Query>
+
+<Query id= "insert_into_partyvotes">
+<![CDATA[
+insert into partyvotes values(?,?,?)
+]]>
+</Query>
+
+<Query id= "candidate_list_with_status">
+<![CDATA[
+candidate_list_with_status";//"select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.userId = u.Id   and c.electionId = ? and c.userId =?
+]]>
+</Query>
+
+</Querys>

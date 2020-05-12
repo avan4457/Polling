@@ -1,6 +1,3 @@
- /**
- * 
- */
 package polling.Utils;
 
 public class CommonConstants {

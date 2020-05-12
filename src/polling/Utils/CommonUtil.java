@@ -1,17 +1,26 @@
 package polling.Utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
-
 import polling.Models.User;
+import polling.Services.IElectionServices;
 import polling.Services.IuserServices;
+
+
+
+/**
+ * 
+ * @author IT19020822
+ *
+ */
 
 public class CommonUtil {
 	
-	public static final Logger log = Logger.getLogger(IuserServices.class.getName());
+	public static final Logger logr =  Logger.getLogger(IElectionServices.class.getName());
 	
 	public static final Properties properties = new Properties();
 
@@ -20,10 +29,9 @@ public class CommonUtil {
 			properties.load(QueryUtil.class.getResourceAsStream(CommonConstants.Property_File));	
 		} 
 		catch (IOException e) {
-			log.log(Level.SEVERE, e.getMessage());
+			logr.log(Level.SEVERE, e.getMessage());
 		}
 	}
-
 	public static String generateId(User user){
 		Random rand = new Random();
 		String id = "u";
@@ -31,4 +39,27 @@ public class CommonUtil {
 		return id + Integer.toString(n);	
 	}
 	
+	static{
+		try{
+			properties.load(QueryUtil.class.getResourceAsStream(CommonConstants.PROPERTY_FILE));
+		} catch(IOException e){
+		
+			logr.log(Level.SEVERE,e.getMessage());
+			
+		}
+	}
+	
+	
+	public static int genarateElectionId(ArrayList<Integer> arrayList){
+		int id;
+		int next = arrayList.size();
+		next++;
+		id = CommonConstants.ELECTION_ID_PREFIX + next;
+		
+		if(arrayList.contains(id)){
+			next++;
+			id = CommonConstants.ELECTION_ID_PREFIX + next;
+		}
+		return id;
+	}
 }

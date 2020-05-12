@@ -122,4 +122,48 @@ public class ElectionServices implements IElectionServices {
 		
 	}
 
+	@Override
+	public boolean validateVoter(String id) {
+		
+		boolean res = false;
+		try {
+			con = DBConnectionUtil.getDBConnection();
+			
+			ps = con.prepareStatement("update voter set status = 'Valid' where id = ?");
+			ps.setString(1, id);
+			
+			int check = ps.executeUpdate();
+			
+			if(check > 0)
+				res = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public boolean validateCandidate(String id) {
+		
+		boolean res = false;
+		try {
+			con = DBConnectionUtil.getDBConnection();
+			
+			ps = con.prepareStatement("update candidate set state = 'Approved' where userId = ?");
+			ps.setString(1, id);
+			
+			int check = ps.executeUpdate();
+			
+			if(check > 0)
+				res = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
 }

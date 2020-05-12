@@ -289,5 +289,17 @@ public class ElectionServicesImp implements IElectionServices {
 		return null;
 	}
 
+	@Override
+	public boolean validateVoter(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validateCandidate(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
 

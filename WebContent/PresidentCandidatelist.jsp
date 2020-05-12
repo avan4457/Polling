@@ -32,13 +32,13 @@
 		<% String vid= (String) request.getAttribute("id"); %>
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
 		<%ArrayList<Candidate> can = (ArrayList) request.getAttribute("candidate"); %>
-		 <form action="addParliamentResultServlet" method="post">
+		 <form action="addPresidentResultServlet" method="post">
 		 	<%for(Candidate candidate : can){ %>
-		 	
-		 	<%=candidate.getNo()%>
+		 	<input type="hidden" name="party" value="<%=candidate.getParty()%>">
+		 	 <img src="images/<%=candidate.getParty()%>.png" width="70" height="70" alt="Profile picture" >
+  			 <%=candidate.getNo()%>
   			<input type="radio" name="Cid" value="<%=candidate.getId()%>">
-  			<%-- <imag href="<%=candidate.getParty()%>"> <!-- how get a image --> --%>
-  			<label for="<%=candidate.getName()%>"><%=candidate.getName()%></label><br>
+  			<label for="<%=candidate.getId()%>"><%=candidate.getName()%></label><br>
   			
 			  	<%-- <label for="cars" ><%=candidate.getName()%></label>
 			<select name="<%=candidate.getId()%>">

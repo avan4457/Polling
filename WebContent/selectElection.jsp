@@ -14,15 +14,23 @@
  <%
 Voter voter = (Voter) request.getAttribute("voter");
 	%>
+<% String res = "";
+res = (String)request.getAttribute("topic");
+if(res == null)
+	res = "Choose a Election";
+%>
 
 				<%ArrayList<Election> arr = (ArrayList) request.getAttribute("election"); %>
 		<form action="selectElectionServlet" method="post">
-  			<label>Choose a Election:</label>
+  			<p><%=res %></p><br><br>
+  			<label >Choose a Election:</label>
   			<select  name="Election">
   			<%for (Election election:arr){ %>
-    			<option><%=election.getName() %></option>
+    			<option  ><%=election.getName() %></option><%-- value="<%=election.getName() %>" --%>
     			<%} %>
   			</select>
+  			<!-- <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label> -->
   			<%-- <input type="hidden" name="Eid" value= "<%=election.getId()%>"> --%>
   			<%-- <%String id = (String) request.getAttribute("id"); %>
   			<input type="hidden" name="id" value= "<%=id %>"> --%>

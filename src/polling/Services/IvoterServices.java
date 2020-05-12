@@ -17,4 +17,5 @@ public interface IvoterServices {
 	public boolean voterValidate(String id,String Eid);
 	//public void voted(String id);
 	public int getElectionId(String Election);
+	public boolean deleteVoterById(String id);
 }

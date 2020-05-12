@@ -58,4 +58,7 @@ public interface IElectionServices {
 	 */
 	public void addElection(Election election);
 	
+	public boolean validateVoter(String id);
+	
+	public boolean validateCandidate(String id);
 }

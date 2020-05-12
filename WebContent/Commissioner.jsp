@@ -104,7 +104,7 @@ ArrayList<Election> eList = ie.getElectionsByClosingDate();
 		</form>
 
 	</div>
-		<form method="post" action="ValidateVoterServlet">
+		<form method="post" action="GetVotersServlet">
 			<table>
 				<div class="form-group">
 					<tr>
@@ -114,7 +114,7 @@ ArrayList<Election> eList = ie.getElectionsByClosingDate();
 				</div>
 			</table>
 		</form>
-			<form method="post" action="ValidateCandidateServlet">
+			<form method="post" action="GetCandidatesServlet">
 			<table>
 				<div class="form-group">
 					<tr>

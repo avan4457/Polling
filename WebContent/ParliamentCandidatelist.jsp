@@ -35,10 +35,10 @@
 		<% String Eid= (String) request.getAttribute("Eid"); %>
 		<% String party= (String) request.getAttribute("party"); %>
 		<%ArrayList<Candidate> can = (ArrayList) request.getAttribute("candidate"); %>
-		 <form action="addParliamentResultServlet" method="post">
+		 <img src="images/<%=party %>.png" width="70" height="70" alt="Profile picture" >
+		 <form action="addPresidentResultServlet" method="post">
 		 	<%for(Candidate candidate : can){ %>
-		 	
-		 	<input> <%=candidate.getNo()%></input>
+		 	 <%=candidate.getNo()%>
   			<input type="radio" name="Cid" value="<%=candidate.getId()%>">
   			<label for="<%=candidate.getId()%>"><%=candidate.getName()%></label><br>
   			
@@ -50,10 +50,10 @@
 			</select><br><br><br> --%> 
   			<%} %>
   			<input type="hidden" name="Election" value="Parliament">
-  			<input type="hidden" name="Eid" value="<%=party %>">
+  			<input type="hidden" name="party" value="<%=party %>">
   			 <input type="hidden" name="Eid" value="<%=Eid %>">
   			 <input type="hidden" name="id" value="<%=vid %>">
-  			<input type="submit" value="Submit">
+  			<input type="submit" value="Submit" value="Submit">
 		</form> 
 </body>
 </html>

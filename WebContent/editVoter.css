@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+#form1{
+	margin-left: 10px;
+	width: 40%;	
+	left: 30%;
+	position: absolute;
+	margin-bottom: 5px;
+}

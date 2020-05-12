@@ -9,76 +9,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import polling.Models.User;
+import polling.Models.Voter;
 import polling.Services.IuserServices;
 import polling.Services.IvoterServices;
 import polling.Services.UserServices;
 import polling.Services.VoterServices;
-import polling.Models.User;
-import polling.Models.Voter;
-
 
 /**
- * Servlet implementation class updateVoterDetailsServlet
+ * Servlet implementation class deleteVoterAccountServlet
  */
-@WebServlet("/updateVoterDetailsServlet")
-public class updateVoterDetailsServlet extends HttpServlet {
+@WebServlet("/deleteVoterAccountServlet")
+public class deleteVoterAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public updateVoterDetailsServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		/*User u = new User();
-		u.setId("C01234");
-		u.setEmail("dilshan@gmilcom");
-		u.setGender("male");
-		u.setName("dilshan");
-		u.setNic("981303016V");
-		u.setPassword("dilshan123");
-		u.setPhoneNumber("0718827789");*/
+		String id=request.getParameter("id");
 		
-		String id= request.getParameter("id");
-		
-		 
-		/*request.setAttribute("user", u);*/
+		IvoterServices iv = new VoterServices();
+		boolean istrue	=iv.deleteVoterById(id);
 		
 		IuserServices iu = new UserServices();
 		User user=iu.getUserById(id);
-		
 		request.setAttribute("user", user);
+		Voter voter =iv. getVoterByID(id);
+		request.setAttribute("voter", voter);
 		
-		IvoterServices iv = new VoterServices();
-		 Voter voter =iv.getVoterByID(id);
-		 request.setAttribute("voter", voter);
-		
-		/*voter voter = iv.districtStatus(v);*/
-		
-		
-		boolean isTrue =iv.districtStatus(id);
-		
-		/*RequestDispatcher di = getServletContext().getRequestDispatcher("/voterProfile.jsp");
-		di.forward(request, response);*/
-		
-		 if(isTrue == false){
+		if(istrue == true){
 			
 			RequestDispatcher d = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
 			d.forward(request, response);
-		 }
-		 else if(isTrue == true){
+		}
+		else{		
+			
+			
 			RequestDispatcher d = getServletContext().getRequestDispatcher("/voterProfile.jsp");
 			d.forward(request, response);
 		}
-		
 	}
 
 }

@@ -17,6 +17,12 @@ public interface IElectionServices {
 	
 	public static final Logger logr = Logger.getLogger(IElectionServices.class.getName());
 
+	/**
+	 * 
+	 * generate result
+	 */
+	public ArrayList<Election> getElectionsByClosingDate();
+	public ArrayList<String> genResults(int elecId);
 	
 	/**
 	 * Get an particular election

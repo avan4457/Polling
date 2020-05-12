@@ -71,10 +71,6 @@ UPDATE user set Image = ? where email = ?
 ]]>
 </Query>
 
-
-
-
-
 <Query id= "voter_by_id">
 <![CDATA[
 select * from voter where id=?

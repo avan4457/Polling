@@ -1,6 +1,7 @@
 package polling.Services;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 
 import polling.Models.Election;
 import polling.Models.User;
+import polling.Utils.CommonConstants;
 import polling.Utils.DBConnectionUtil;
 
 public class ElectionServices implements IElectionServices {
@@ -31,11 +33,13 @@ public class ElectionServices implements IElectionServices {
 			
 			while(rs.next()){
 				Election e = new Election();
-				e.setId(rs.getInt(1));
-				e.setName(rs.getString(2));
-				e.setType(rs.getString(3));
-				e.setStartDate(rs.getDate(4));
-				e.setEndDate(rs.getDate(5));
+				e.setElectionID(rs.getInt(1));
+				e.setElectionName(rs.getString(2));
+				e.setElectionType(rs.getString(3));
+				Date sDate = rs.getDate(CommonConstants.INDEX_FOUR);
+				Date eDate = rs.getDate(CommonConstants.INDEX_FIVE);
+				e.setStartDate(sDate.toLocalDate());
+				e.setEndDate(eDate.toLocalDate());
 				elec.add(e);
 			}
 			
@@ -86,6 +90,36 @@ public class ElectionServices implements IElectionServices {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public Election getElectionByID(int electionID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Election> getElection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void upDateElection(Election election, int electionID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteElection(int electionID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addElection(Election election) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

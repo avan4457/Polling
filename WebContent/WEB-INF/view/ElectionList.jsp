@@ -1,7 +1,7 @@
-<%@ page import="com.oop.classes.Election"%>
+<%@ page import="polling.Models.Election"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="com.election.service.ElectionServicesImp"%>
-<%@ page import="com.election.service.IElectionServices"%>
+<%@ page import="polling.Services.ElectionServicesImp"%>
+<%@ page import="polling.Services.IElectionServices"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>

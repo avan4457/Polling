@@ -22,7 +22,7 @@ public class QueryUtil {
 		 * list. It refers tag name query
 		 */
 		nodeList = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(new File(System.getProperty("catalina.base") + "\\wtpwebapps\\Project\\WEB-INF\\UserQuery.xml"))
+				.parse(new File(System.getProperty("catalina.base") + "\\wtpwebapps\\Project\\WEB-INF\\Query.xml"))
 				.getElementsByTagName(CommonConstants.Tag_Name);
 		/*
 		 * Extract the node from node list using query id query id is taken from
@@ -33,8 +33,8 @@ public class QueryUtil {
 			element = (Element) nodeList.item(value);
 			if (element.getAttribute(CommonConstants.Attr_Id).equals(id))
 				break;
-			return element.getTextContent().trim();
 		}
+		return element.getTextContent().trim();
 	}
 
 	public static String queryById(String Id) throws SAXException, IOException, ParserConfigurationException {

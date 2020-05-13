@@ -23,7 +23,6 @@ import polling.Utils.QueryUtil;
 
 import java.sql.Statement;
 
-//doiapdia
 public class VoterServices implements IvoterServices {
 
 	private static Connection con;
@@ -31,44 +30,34 @@ public class VoterServices implements IvoterServices {
 	private static PreparedStatement ps;
 	private static Statement stmt;
 	private static ResultSet rs ;
-	@Override
-	public void RegisterVoter(Voter v) {
 	
-		
-		
+	@Override
+	public boolean RegisterVoter(String Vid, String district, String status) {
+		boolean istrue=false;
 		try {
-			con =DBConnectionUtil.getDBConnection();
-			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
-			ps.setString(1,v.getId());
-			rs=ps.executeQuery();
-			if(rs.next()){
-				/*con = DBConnect.getconnection();*/
-				/*stmt = con.createStatement();
-				String sql1 ="update voter set district=? where id= ?";
-				ps = con.prepareStatement(sql1);*/
 				
-				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_UPDATE_VOTER));
-				ps.setString(1,v.getDistrict());
-				ps.setString(2,v.getStatus());
-				ps.setString(3,v.getId());
-			   ps.executeUpdate();
-			   //int s=
-			   
-			}
-			else{
-				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_INSERT_VOTER));
+				con =DBConnectionUtil.getDBConnection();
+				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
+				ps.setString(1,Vid);
+				rs=ps.executeQuery();
+				if(rs.next()){
+					
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_UPDATE_VOTER));
+					ps.setString(1,district);
+					ps.setString(2,status);
+					ps.setString(3,Vid);
+				   ps.executeUpdate();
 				
-				con.setAutoCommit(false);
-				ps.setString(1, v.getId());
-				ps.setString(3, v.getDistrict());
-				ps.setString(2, v.getStatus());
-				
-				ps.execute();	
-				con.commit();	
-			}
-			
-				
-			
+				   istrue=true;
+				}
+				else{
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_INSERT_VOTER));
+					ps.setString(1,Vid);
+					ps.setString(2,status);
+					ps.setString(3,district);
+					ps.execute();	
+					istrue=true;
+				}
 			
 		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e ) {
 			log.log(Level.SEVERE, e.getMessage());
@@ -84,7 +73,7 @@ public class VoterServices implements IvoterServices {
 					log.log(Level.SEVERE, e.getMessage());
 				}			
 		}
-		
+		return istrue;
 	}
 
 	@Override
@@ -94,9 +83,6 @@ public class VoterServices implements IvoterServices {
 		 
 		try {
 			con = DBConnectionUtil.getDBConnection();
-			/*stmt = con.createStatement();*/
-			/*String sql = "select name from Election where starting_date <=SYSDATE() and ending_date>=SYSDATE()";*/
-			/*rs=stmt.executeQuery(sql);*/
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION));
 			rs=ps.executeQuery();
 			
@@ -126,18 +112,14 @@ public class VoterServices implements IvoterServices {
 	}
 
 	@Override
-	public boolean districtStatus(String id) {
+	public boolean districtStatus(String Vid) {
 		// TODO Auto-generated method stub
 		boolean istrue = false;
 		try {
 			con = DBConnectionUtil.getDBConnection();
-			/*stmt = con.createStatement();*/
-			/*String sql = "select district from voter where id=?";*/
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
-			ps.setString(1,id);
+			ps.setString(1,Vid);
 			rs=ps.executeQuery();
-			/*rs=stmt.executeQuery(sql);*/
-			/*String dis =rs.getString(1);*/
 			if(rs.next()){
 				 istrue=true;
 				 
@@ -164,19 +146,16 @@ public class VoterServices implements IvoterServices {
 		return istrue;
 	}
 
-	public boolean upda(){
-		boolean tr=true;
-		return tr;
-	}
 
-	public ArrayList<Voter> getVoterDetails(String id){
-		Voter va =  new Voter();
+
+	public ArrayList<Voter> getVoterDetails(String Vid){
+		Voter voter =  new Voter();
 		ArrayList<Voter> ar = new ArrayList<>();
 		
 		try {
 			con = DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
-			ps.setString(1,id);
+			ps.setString(1,Vid);
 			rs=ps.executeQuery();
 		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -189,11 +168,11 @@ public class VoterServices implements IvoterServices {
 				String ID=rs.getString(1);
 				String status=rs.getString(2);
 				String district=rs.getString(3);
-				va.setId(ID);
-				va.setDistrict(district);
-				va.setStatus(status);
+				voter.setId(ID);
+				voter.setDistrict(district);
+				voter.setStatus(status);
 				
-				ar.add(va);
+				ar.add(voter);
 				
 			}
 		} catch (SQLException e) {
@@ -215,32 +194,13 @@ public class VoterServices implements IvoterServices {
 	}
 	
 	@Override
-	public Voter getVoterByID(String voterID) {
+	public Voter getVoterByID(String Vid) {
 
 		Voter voter = new Voter();
 		try{
 			con = DBConnectionUtil.getDBConnection();
-			/*
-			 * Before fetching employee it checks whether employee ID is
-			 * available
-			 */
-			/*if (voterID != null && !voterID.isEmpty()) {*/
-				/*
-				 * Get employee by ID query will be retrieved from
-				 * EmployeeQuery.xml
-				 */
 				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
-				ps.setString(1,voterID);
-				
-			/*}*/
-			/*
-			 * If employee ID is not provided for get employee option it display
-			 * all employees
-			 */
-			/*else {
-				preparedStatement = connection
-						.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_ALL_EMPLOYEES));
-			}*/
+				ps.setString(1,Vid);
 			rs=ps.executeQuery();
 
 			if (rs.next()) {
@@ -269,17 +229,14 @@ public class VoterServices implements IvoterServices {
 	}
 	
 	
-	public boolean voterValidate(String id,String Eid) {
+	public boolean voterValidate(String Vid,String Eid) {
 		// TODO Auto-generated method stub
 		boolean istrue = false;
 		try {
 			con = DBConnectionUtil.getDBConnection();
-			/*
-			 * Before fetching employee it checks whether employee ID is
-			 * available
-			 */
+			
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
-			ps.setString(1,id);
+			ps.setString(1,Vid);
 			rs=ps.executeQuery();
 			
 			if(rs.next()){
@@ -287,7 +244,7 @@ public class VoterServices implements IvoterServices {
 				
 				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_CHECKED_VOTES_TABLE));
 				ps.setInt(1,Integer.parseInt(Eid));
-				ps.setString(2,id);
+				ps.setString(2,Vid);
 				rs=ps.executeQuery();
 				
 				if(status.equals("Valid") && !rs.next()){	
@@ -318,27 +275,10 @@ public class VoterServices implements IvoterServices {
 		
 		return istrue;
 	}
-	/*public void voted(String id){
-		con = DBConnect.getconnection();
-		String a = "Voted";
-		try {
-			ps = con.prepareStatement("update voter set PrEStatus = ?  where id=? "); //must change this
-			ps.setString(1,a);
-			ps.setString(2,id);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}*/
 	
 	public int getElectionId(String Election){
 		int id=0;
 		
-		/*stmt = con.createStatement();*/
-		/*String sql = "select name from Election where starting_date <=SYSDATE() and ending_date>=SYSDATE()";*/
-		/*rs=stmt.executeQuery(sql);*/
 		try {
 			con=DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_ID));
@@ -366,14 +306,14 @@ public class VoterServices implements IvoterServices {
 		
 		return id;
 	}
-	public boolean deleteVoterById(String id){
+	public boolean deleteVoterById(String Vid){
 		boolean istrue = false;
 		
 		
 		try {
 			con=DBConnectionUtil.getDBConnection();
 			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_DELETE_VOTER_BY_ID));
-			ps.setString(1,id);
+			ps.setString(1,Vid);
 			int r=ps.executeUpdate();
 			if(r>0){
 				istrue=true;
@@ -400,52 +340,261 @@ public class VoterServices implements IvoterServices {
 		
 		return istrue;
 	}
-	/*private ArrayList<Candidate> actionOnCandidate(String Election,String id) {
+/*	--------------------------------------------------------*/
+	
+public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,String Eid) {
 
 		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
 		try {
-			con = DBConnect.getconnection();
-			
-			 * Before fetching employee it checks whether employee ID is
-			 * available
-			 
-			ps = con.prepareStatement("selct * from voter where id=? ");
-			ps.setString(1,id);
+			con = DBConnectionUtil.getDBConnection();
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));
+			ps.setString(1,Vid);
 			rs=ps.executeQuery();
 			
 			if(rs.next()){
-				String  status=rs.getString(2);
-				if(status.equals("Valid")){		//employeeID != null && !employeeID.isEmpty()
-					//String namm = "passs";
-					ps = con.prepareStatement("selct * from candidate where election = ? ");
-					ps.setString(1,Election);
-					String sql1 = "selct * from candidate where election = '"+Election+"' and id='"+Vaa+"' ";
+				String  district=rs.getString(3);
+				String  Election = "Parliament";
+						
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_LIST)); 
+					
+					ps.setString(1,district);
+					ps.setString(2,party);
+					ps.setString(3,"Valid");
+					ps.setString(4,Eid);
+					
+					
 					rs=ps.executeQuery();
 					
-					//String Vaa = "C01";
-					//String sql1 = "update candidate set name ='"+namm+"' , where id ='"+Vaa+"' ";
-					//int rs= stmt.executeUpdate(sql1);
+					
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setName(rs.getString(2)); 
-						candidate.setParty(rs.getString(4));
+						candidate.setId(rs.getString(1));
+						candidate.setName(rs.getString(2));
+						candidate.setNo(rs.getInt(3));
 						candidateList.add(candidate);
 						
 					}
-				}
+				
 			
-			 * If employee ID is not provided for get employee option it display
-			 * all employees
-			 
 		} 
-		}catch (SQLException e) {
+		}catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		finally{
+			if(ps != null)
+				try {
+					ps.close();
+					if(con != null)
+						con.close();
+				}
+				catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}			
+		}
+		
+		return candidateList;
+	}
+	
+	
+	public  ArrayList<Candidate> GetPresidentCandidatelist(String Election,String Eid) {
+
+		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
+		try {
+			con =DBConnectionUtil.getDBConnection();
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_LIST_WITH_PARTY)); 
+					ps.setString(1,"Valid");
+					ps.setString(2,Eid);
+					rs=ps.executeQuery();
+					
+				
+					
+					while(rs.next()){
+						Candidate candidate = new Candidate();
+						candidate.setId(rs.getString(1));
+						candidate.setName(rs.getString(2)); 
+						candidate.setParty(rs.getString(3));
+						candidate.setNo(rs.getInt(4));
+						candidateList.add(candidate);
+						
+					}
+				
+		
+		}catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		finally{
+			if(ps != null)
+				try {
+					ps.close();
+					if(con != null)
+						con.close();
+				}
+				catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}			
+		}
+		
+		return candidateList;
+	}
+	
+	public ArrayList<String> GetPartyies(String Election,String Vid,String Eid){
+		ArrayList<String> par= new ArrayList<String>();
+		try {
+			con = DBConnectionUtil.getDBConnection();
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_VOTER));// it checks whether Voter ID is available
+			ps.setString(1,Vid);
+			rs=ps.executeQuery();
+		
+		if(rs.next()){
+			String dis=rs.getString(3);
+			String status = "Valid";
+				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_PARTIES));  
+				ps.setString(1,dis);
+				ps.setString(2,status);
+				ps.setString(3,Eid);
+				rs=ps.executeQuery();
+				
+				while(rs.next()){
+					String party = rs.getString(1);
+					par.add(party);
+					
+				}
+			}
+			else{
+				
+			}
+				
+		
+		 
+		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		finally{
+			if(ps != null)
+				try {
+					ps.close();
+					if(con != null)
+						con.close();
+				}
+				catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}			
+		}
+		
+		
+		return par;
+	}   
+	public  boolean addVoterVotes(String Election,String party,String Vid,String Eid,String Cid){
+		boolean istrue=false;
+		
+		try {
+			con=DBConnectionUtil.getDBConnection();
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_INSERT_VOTES));
+			ps.setInt(1,Integer.parseInt(Eid));
+			ps.setString(2,Vid);
+			ps.execute();
+			
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_CHECKED_RESULTS));
+			ps.setInt(1,Integer.parseInt(Eid));
+			ps.setString(2,Cid);
+			rs=ps.executeQuery();
+			istrue=true;
+			if(rs.next()){
+				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_UPDATE_RESULTS));
+				ps.setInt(1,Integer.parseInt(Eid));
+				ps.setString(2,Cid);
+				ps.executeUpdate();
+			}
+			else{
+				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_INSERT_RESULTS));
+				ps.setInt(1,Integer.parseInt(Eid));
+				ps.setString(2,Cid);
+				ps.setInt(3, 1);
+				ps.execute();
+				
+			}
+			if(Election.equals("Parliament")){
+				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_CHECKED_PARTYVOTES));
+				ps.setInt(1,Integer.parseInt(Eid));
+				ps.setString(2,party);
+				rs=ps.executeQuery();
+				if(rs.next()){
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_UPDATE_PARTYVOTES));
+					ps.setInt(1,Integer.parseInt(Eid));
+					ps.setString(2,party);
+					ps.executeUpdate();
+				}
+				else{
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_INSERT_PARTYVOTES));
+					ps.setInt(1,Integer.parseInt(Eid));
+					ps.setString(2,party);
+					ps.setInt(3, 1);
+					ps.execute();
+				}
+			}
+			else{
+				istrue=true;
+			}
+			istrue=true;
+		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		finally{
+			if(ps != null)
+				try {
+					ps.close();
+					if(con != null)
+						con.close();
+				}
+				catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}			
+		}
+		return istrue;
+	} 
+	public  ArrayList<Candidate> GetCandidateById(String Cid,String Eid) {
+
+		ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
+		try {
+			con = DBConnectionUtil.getDBConnection();
+					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_LIST_WITH_status)); 
+					ps.setString(1,Eid);
+					ps.setString(2,Cid);
+					rs=ps.executeQuery();
+					
+					while(rs.next()){
+						Candidate candidate = new Candidate();
+						candidate.setId(rs.getString(1));
+						candidate.setName(rs.getString(2)); 
+						candidate.setParty(rs.getString(3));
+						candidate.setNo(rs.getInt(4));
+						candidateList.add(candidate);
+						
+					}
+			
+		
+		}catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		}
+		finally{
+			if(ps != null)
+				try {
+					ps.close();
+					if(con != null)
+						con.close();
+				}
+				catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}			
 		} 
 		
 		return candidateList;
-	}*/
-
-
+	}
 }
+

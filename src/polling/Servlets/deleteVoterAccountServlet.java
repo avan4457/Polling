@@ -28,15 +28,15 @@ public class deleteVoterAccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id=request.getParameter("id");
+		String Vid=request.getParameter("Vid");
 		
 		IvoterServices iv = new VoterServices();
-		boolean istrue	=iv.deleteVoterById(id);
+		boolean istrue	=iv.deleteVoterById(Vid);
 		
 		IuserServices iu = new UserServices();
-		User user=iu.getUserById(id);
+		User user=iu.getUserById(Vid);
 		request.setAttribute("user", user);
-		Voter voter =iv. getVoterByID(id);
+		Voter voter =iv. getVoterByID(Vid);
 		request.setAttribute("voter", voter);
 		
 		if(istrue == true){

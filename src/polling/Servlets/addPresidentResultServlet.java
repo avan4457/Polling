@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.Candidate;
+import polling.Services.IvoterServices;
+import polling.Services.VoterServices;
 import polling.Services.displyCandidate;
 
 /**
@@ -33,16 +35,18 @@ public class addPresidentResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id=request.getParameter("id");
+		String Vid=request.getParameter("Vid");
 		String party =request.getParameter("party");
 		String Cid = request.getParameter("Cid");
 		String Eid = request.getParameter("Eid");
 		String Election = request.getParameter("Election");
 		
-		ArrayList<Candidate>candidate = displyCandidate.validate4(Cid,Eid);
-		request.setAttribute("candidate", candidate);
+		IvoterServices iv = new VoterServices();
 		
-		request.setAttribute("id",id);
+		ArrayList<Candidate>candidate = iv.GetCandidateById(Cid,Eid);
+		request.setAttribute("candidate", candidate);
+		 
+		request.setAttribute("Vid",Vid);
 		request.setAttribute("party",party);
 		request.setAttribute("Eid",Eid);
 		request.setAttribute("Election",Election);

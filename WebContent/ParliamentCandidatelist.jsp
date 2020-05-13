@@ -8,52 +8,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="editVoter.css">
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- <form action="/action_page.php">
-  			<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-  			<label for="vehicle1"> I have a bike</label><br>
-  			<input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-  			<label for="vehicle2"> I have a car</label><br>
-  			<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-  			<label for="vehicle3"> I have a boat</label><br><br>
-  			<input type="submit" value="Submit">
-		</form> 
-		<h1>paarlimaent<h1> -->
-		
-		<%-- <%ArrayList<String> a = (ArrayList) request.getAttribute("a"); %>
-		 <form action="/action_page.php">
-		 	<%for (String b:a){ %>
-  			<input type="radio" id="vehicle1" name="vehicle1" value="<%=b %>">
-  			<imag href="<%=b %>" length="" width="">
-  			<label for="vehicle1"><%=b %></label><br>
-  			<%} %>
-  			<input type="submit" value="Submit">
-		</form> --%>
-		<% String vid= (String) request.getAttribute("id"); %>
+		<% String Vid= (String) request.getAttribute("Vid"); %>
 		<% String Eid= (String) request.getAttribute("Eid"); %>
 		<% String party= (String) request.getAttribute("party"); %>
 		<%ArrayList<Candidate> can = (ArrayList) request.getAttribute("candidate"); %>
-		 <img src="images/<%=party %>.png" width="70" height="70" alt="Profile picture" >
+		 <img src="images/<%=party %>.png" width="70" height="70" alt="Profile picture" ><br><br>
 		 <form action="addPresidentResultServlet" method="post">
 		 	<%for(Candidate candidate : can){ %>
 		 	 <%=candidate.getNo()%>
   			<input type="radio" name="Cid" value="<%=candidate.getId()%>">
-  			<label for="<%=candidate.getId()%>"><%=candidate.getName()%></label><br>
-  			
-  			<%-- <label  ><%=candidate.getName()%></label>
-			<select name="<%=candidate.getId()%>">
-			  <option value=""></option>
-			  <option value="x">x</option>  
-			  
-			</select><br><br><br> --%> 
+  			<label for="<%=candidate.getId()%>"><%=candidate.getName()%></label><br><br>
+  			 
   			<%} %>
   			<input type="hidden" name="Election" value="Parliament">
   			<input type="hidden" name="party" value="<%=party %>">
   			 <input type="hidden" name="Eid" value="<%=Eid %>">
-  			 <input type="hidden" name="id" value="<%=vid %>">
-  			<input type="submit" value="Submit" value="Submit">
+  			 <input type="hidden" name="Vid" value="<%=Vid %>">
+  			<input type="submit" value="Submit" class="btn btn-primary"  value="Submit">
 		</form> 
 </body>
 </html>

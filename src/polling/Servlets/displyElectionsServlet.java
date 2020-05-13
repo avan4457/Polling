@@ -44,16 +44,15 @@ public class displyElectionsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 			response.setContentType("text/html");
-			String id=request.getParameter("id");
+			String Vid=request.getParameter("Vid");
 			IvoterServices iv = new VoterServices();
 			
-			Voter voter =iv. getVoterByID(id); //  or id
+			Voter voter =iv. getVoterByID(Vid); 
 			
 			ArrayList<Election> election =iv.currentElections();
 			request.setAttribute("election",election);
 			request.setAttribute("voter",voter);
 			
-			/*request.setAttribute("id", id);*/
 			RequestDispatcher d = getServletContext().getRequestDispatcher("/selectElection.jsp");
 			d.forward(request, response);
 	}

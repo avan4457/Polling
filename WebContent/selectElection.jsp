@@ -8,34 +8,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="ParliamentCandidatelistStyle.css">
 <title>Insert title here</title>
 </head>
 <body>
+<section class="wave">
  <%
 Voter voter = (Voter) request.getAttribute("voter");
 	%>
-<% String res = "";
-res = (String)request.getAttribute("topic");
-if(res == null)
-	res = "Choose a Election";
+<% String topic = "";
+topic = (String)request.getAttribute("topic");
+if(topic == null)
+	topic = "Choose a Election";
 %>
 
-				<%ArrayList<Election> arr = (ArrayList) request.getAttribute("election"); %>
+				<%ArrayList<Election> elec = (ArrayList) request.getAttribute("election"); %>
+		<div id="content">
 		<form action="selectElectionServlet" method="post">
-  			<p><%=res %></p><br><br>
+  			<p><%=topic %></p><br><br>
   			<label >Choose a Election:</label>
   			<select  name="Election">
-  			<%for (Election election:arr){ %>
-    			<option  ><%=election.getElectionName() %></option><%-- value="<%=election.getName() %>" --%>
+
+  			<%for (Election election:elec){ %>
+    			<option  ><%=election.getName() %></option>
+
     			<%} %>
   			</select>
-  			<!-- <input type="radio" id="male" name="gender" value="male">
-  <label for="male">Male</label> -->
-  			<%-- <input type="hidden" name="Eid" value= "<%=election.getId()%>"> --%>
-  			<%-- <%String id = (String) request.getAttribute("id"); %>
-  			<input type="hidden" name="id" value= "<%=id %>"> --%>
-  			<input type="hidden" name="id" value= "<%=voter.getId()%>">
-  			<input type="submit" name="submit" value="submit">
+  			<input type="hidden" name="Vid" value= "<%=voter.getId()%>">
+  			<input type="submit" name="submit" class="btn btn-primary"  value="submit">
 </form>
+</div>
 </body>
 </html>

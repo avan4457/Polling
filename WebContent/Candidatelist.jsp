@@ -7,39 +7,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="editVoter.css">
 <title>Insert title here</title>
 </head>
 <body>
 
-<% String vid= (String) request.getAttribute("id"); %>
+<% String Vid= (String) request.getAttribute("Vid"); %>
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
 		 <% String Election= (String) request.getAttribute("Election"); %>
 		  <%ArrayList<Candidate> ca = (ArrayList) request.getAttribute("candidate"); %> 
 		  <% String party= (String) request.getAttribute("party"); %>
 <%
-String re = "";
-re = (String)request.getAttribute("re");
-String ls="hidden";
-if(re == null){
-	re = "chosen candidate";
-	ls = "submit";
+String topic = "";
+topic = (String)request.getAttribute("topic");
+String type="hidden";
+if(topic == null){
+	topic = "chosen candidate";
+	type = "submit";
 }
 
 %>
 	
 	<form action="addParliamentResultServlet" method="post">
-	<h4><%=re %></h4>
+	<h4><%=topic %></h4>
 	<%for(Candidate candidate : ca){ %>
 		 	<img src="images/<%=candidate.getParty() %>.png" width="70" height="70" alt="Party picture" ><br>
 		 	 <%=candidate.getNo()%>
   			<input type="hidden" name="Cid" value="<%=candidate.getId()%>" readonly>
-  			<p><%=candidate.getName()%><p><br> 
-  			<%} %>
+  			<%=candidate.getName()%>
+  			<%} %><br>
 			<input type="hidden" name="party" value="<%=party %>">
 			 <input type="hidden" name="Eid" value="<%=Eid %>">
   			 <input type="hidden" name="Election" value="<%=Election %>">
-  			 <input type="hidden" name="id" value="<%=vid %>">
-  			<input type="<%=ls%>" name="submit" value="submit">
+  			 <input type="hidden" name="Vid" value="<%=Vid %>">
+  			<input type="<%=type%>" name="submit"  class="btn btn-primary"  value="submit">
 		</form> 
 </body>
 </html>

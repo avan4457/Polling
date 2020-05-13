@@ -6,24 +6,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="deleteAccountStyle.css">
 <title>Insert title here</title>
 </head>
 <body>
+<section class="wave">
 			
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
 			<%ArrayList<String> par = (ArrayList) request.getAttribute("party"); %>
-			<% String id= (String) request.getAttribute("id"); %>
+			<% String Vid= (String) request.getAttribute("Vid"); %>
 		<form action="selectParliamentCandidateServlet" method="post">
   			<label>Choose a Party:</label>
   			<select  name="party">
-  			<%for (String P:par){ %>
-    			<option ><%=P%></option>
-    			<!-- <imag href="" name=""> -->
+  			<%for (String Party:par){ %>
+    			<option ><%=Party%></option>
     			<%} %>
   			</select>
   			 <input type="hidden"  name="Eid" value="<%=Eid %>"> 
-  			<input type="hidden"  name="id" value="<%=id %>">
-  			<input type="submit" name="submit" value="submit">
+  			<input type="hidden"  name="Vid" value="<%=Vid %>">
+  			<input type="submit" name="submit" class="btn btn-primary"  value="submit">
   			</form>
 
 </body>

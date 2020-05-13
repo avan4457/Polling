@@ -48,31 +48,31 @@ public class RegisterServlet extends HttpServlet {
 		
 		
 		response.setContentType("text/html");
-		/*User u = new User();*/
-		String id=request.getParameter("id");
+		String Vid=request.getParameter("Vid");
+		String district=request.getParameter("district");
+		String status = "Invalid";
 		
-		Voter v = new Voter();
-		
-		v.setId(id);
-		v.setDistrict(request.getParameter("district"));
-		//v.setStatus(request.getParameter("Status"));
-		v.setStatus("Invalid");
-		/*v.setId("c0123456");*/
 		IuserServices iu = new UserServices();
-		User user=iu.getUserById(id);	
+		User user=iu.getUserById(Vid);
+		request.setAttribute("user", user);
 		
-		//request.setAttribute("v", v);
+		
 		
 		IvoterServices iv = new VoterServices();
 		
-		iv.RegisterVoter(v);		
-		Voter voter =iv. getVoterByID(id);
+		boolean istrue =iv.RegisterVoter(Vid,district,status);		
+		Voter voter =iv. getVoterByID(Vid);
 		request.setAttribute("voter", voter);
-		request.setAttribute("user", user);
 		
+		
+		if(istrue == true){
 		RequestDispatcher d = getServletContext().getRequestDispatcher("/voterProfile.jsp");
 		d.forward(request, response);
-		
+		}
+		else if(istrue == false){
+			RequestDispatcher d = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
+			d.forward(request, response);
+		}
 		
 	}
 

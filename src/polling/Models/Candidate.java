@@ -1,41 +1,78 @@
 package polling.Models;
 
 public class Candidate {
-	private String id;
-	private String party;
+	private String candidateId;
 	private int electionId;
-	private int no;
+  private String name;
+	private String election;
+	private String electionType;
+	private String party;
+	private int number;
 	private String district;
 	private String state;
-
 	
-	public Candidate(String party,String id,int no,String district,String state, int electionId){
+	public Candidate(String candidateId,int electionId,String election,String electionType,String party,int number,String district,String state) {
+		this.candidateId = candidateId;
+		this.electionId = electionId;
+		this.election = election;
+		this.electionType = electionType;
 		this.party = party;
-		this.id = id;
-		this.no = no;
+		this.number = number;
 		this.district = district;
 		this.state = state;
-		this.electionId = electionId;
 	}
-	public Candidate() {
+	
+	public String getCandidateId () {
+		return candidateId ;
 	}
-	public String getParty() {
+	
+	/*public void setCandidateId (String candidateId) {
+		this.CandidateId = candidateId;
+	}*/
+	
+	public String getElection () {
+		return election;
+	}
+	
+	/*public void setElection (String election) {
+		this.Election = election;
+	}*/
+	
+	public int getElectionId () {
+		return electionId;
+	}
+	
+//	public void setElectionId (int electionId) {
+//		this.ElectionId = electionId;
+//	}
+	
+	public String getElectionType () {
+		return electionType;
+
+	}
+	
+//	public void setElectionType (String electionType) {
+//		this.ElectionType = electionType;
+//	}
+	
+	public String getParty () {
 		return party;
 	}
-	public void setParty(String party) {
-		this.party = party;
+	
+	/*public void setParty (String party) {
+		this.Party = party;
+	}*/
+	
+	public int getNumber () {
+		return number;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
+	
+	/*public void setNumber (int number) {
+		this.Number = number;
+	}*/
+	
+	public String getDistrict () {
+		return district;
 	}
 	public String getDistrict() {
 		return district;
@@ -56,5 +93,15 @@ public class Candidate {
 		this.electionId = electionId;
 	}
 	
+//	public void setDistrict (String district) {
+//		this.District = district;
+//	}
 	
+	public String getState () {
+		return state;
+	}
+	
+	/*public void setState (String state) {
+		this.State = state;
+	}*/
 }

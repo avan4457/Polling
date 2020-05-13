@@ -8,11 +8,13 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import polling.Models.Candidate;
@@ -28,6 +30,7 @@ public class CandidateService implements ICandidateService {
 	
 
 	private PreparedStatement preparedStatement;
+	private Statement statement;
 	private static Connection connection;
 	
 	/**
@@ -196,16 +199,16 @@ public class CandidateService implements ICandidateService {
 	 * 
 	 */
 	
-	public boolean removeCandidate(String candidateId, String electionId, String state) {
+	public boolean removeCandidate(String candidateId, int electionId, String state) {
 		String canState="Nominated";
 		boolean isTrue = false;
-		if (candidateId != null && !candidateId.isEmpty() && electionId != null && !electionId.isEmpty() && state == canState) {
+		if (candidateId != null && !candidateId.isEmpty()  && state == canState) {
 			try {
 				connection = DBConnectionUtil.getDBConnection();
 				preparedStatement = connection
 						.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_REMOVE_CANDIDATE));
 				preparedStatement.setString(CommonConstants.COLUMN_INDEX_ONE, candidateId);
-				preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWO, electionId);
+				preparedStatement.setInt(CommonConstants.COLUMN_INDEX_TWO, electionId);
 				preparedStatement.setString(CommonConstants.COLUMN_INDEX_THREE, canState);
 				int result = preparedStatement.executeUpdate();
 				if(result > 0) {
@@ -236,14 +239,90 @@ public class CandidateService implements ICandidateService {
 		return isTrue;
 	}
 	
+	
+	/**
+	 * This method will get the end date of an election using the election id
+	 * 
+	 */
+	
+	private Date validateDate(int electionId) {
+		Date endDate = null;
+		try {
+			connection = DBConnectionUtil.getDBConnection();
+			preparedStatement = connection
+					.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_END_DATE_BY_ELECTION_ID));
+			preparedStatement.setInt(CommonConstants.COLUMN_INDEX_ONE, electionId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+			 endDate = resultSet.getDate(CommonConstants.COLUMN_INDEX_ONE);
+			}
+			
+		} catch (SQLException | SAXException | IOException | ParserConfigurationException | ClassNotFoundException e) {
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end
+			 * of transaction
+			 */
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		return endDate;
+	}
+	
+
+	
+	
 	/**
 	 * This method will change state of candidate to closed if election date is
 	 * 
 	 */
 	
-	/*public boolean closeCandidate(String candidateId, String electionId, String state) {
+	public void closeCandidate(String candidateId, int electionId, String state) {
+		String canState = "Closed";
+		Date currentDate = new Date(); 
+		Date endDate = validateDate(electionId);
+		
+		if((currentDate.after(endDate) || currentDate.equals(endDate)) && state != canState) {
+			try {
+				connection = DBConnectionUtil.getDBConnection();
+				preparedStatement = connection
+					.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_ClOSE_CANDIDATE_STATE));
+				preparedStatement.setString(CommonConstants.COLUMN_INDEX_ONE, canState);
+				preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWO, candidateId);
+				preparedStatement.setInt(CommonConstants.COLUMN_INDEX_THREE, electionId);
+				int result = preparedStatement.executeUpdate();
 			
-	}*/
+			
+			} catch (SQLException | SAXException | IOException | ParserConfigurationException | ClassNotFoundException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			} finally {
+				/*
+				 * Close prepared statement and database connectivity at the end
+				 * of transaction
+				 */
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+					if (connection != null) {
+						connection.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+					}
+			}
+		}
+	}
 }
 	
 	

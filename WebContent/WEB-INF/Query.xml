@@ -319,6 +319,18 @@ select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.u
         ]]>
 	</Query>
 	
+	<Query id="get_election_id_by_end_date">
+         <![CDATA[        
+            select endDate from election where electionID = ?
+        ]]>
+	</Query>
+	
+	<Query id="update_candidate_state">
+         <![CDATA[        
+           update candidate set state = ? where userId = ? and electionId = ?
+        ]]>
+	</Query>
+	
 	<Query id = "insert_campaign">
 		<![CDATA[
 			insert into campaign values (?,?,?,?,?,?)

@@ -3,23 +3,16 @@ package polling.Utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Random;
+
 import polling.Models.User;
+import polling.Services.ICandidateService;
 import polling.Services.IElectionServices;
-import polling.Services.IuserServices;
-
-
-
-/**
- * 
- * @author IT19020822
- *
- */
 
 public class CommonUtil {
-	
+
 	public static final Logger logr =  Logger.getLogger(IElectionServices.class.getName());
 	
 	public static final Properties properties = new Properties();
@@ -61,5 +54,31 @@ public class CommonUtil {
 			id = CommonConstants.ELECTION_ID_PREFIX + next;
 		}
 		return id;
+	}
+	
+	public static String generateIDs(ArrayList<String> arrayList) {
+
+		String id;
+		int next = arrayList.size();
+		next++;
+		id = CommonConstants.CAMPAIGN_ID_PREFIX + next;
+		if (arrayList.contains(id)) {
+			next++;
+			id = CommonConstants.CAMPAIGN_ID_PREFIX + next;
+		}
+		return id;
+	}
+
+
+	public static int generateNum(ArrayList<Integer> arrayList){
+		int Num;
+		int next = arrayList.size();
+		next++;
+		Num = next;
+		if (arrayList.contains(Num)) {
+			next++;
+			Num = next;
+		}
+		return Num;
 	}
 }

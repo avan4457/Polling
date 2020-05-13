@@ -73,7 +73,7 @@ public class DirectUserServlet extends HttpServlet {
 		else{
 			//boolean check exist by method
 			//if() candidate is not registered
-			dispatcher = getServletContext().getRequestDispatcher("/Candidate.jsp");
+			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 			//else to candidate profile if registered
 		}
 		dispatcher.forward(request, response);

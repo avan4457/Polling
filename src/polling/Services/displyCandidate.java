@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 
 import polling.Models.Candidate;
 import polling.Utils.CommonConstants;
-import polling.Utils.DBConnect;
 import polling.Utils.DBConnectionUtil;
 import polling.Utils.QueryUtil;
 

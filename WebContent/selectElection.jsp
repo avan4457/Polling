@@ -29,8 +29,10 @@ if(topic == null)
   			<p><%=topic %></p><br><br>
   			<label >Choose a Election:</label>
   			<select  name="Election">
+
   			<%for (Election election:elec){ %>
     			<option  ><%=election.getName() %></option>
+
     			<%} %>
   			</select>
   			<input type="hidden" name="Vid" value= "<%=voter.getId()%>">

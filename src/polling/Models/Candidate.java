@@ -3,14 +3,19 @@ package polling.Models;
 public class Candidate {
 	private String id;
 	private String party;
-	private String name;
+	private int electionId;
 	private int no;
+	private String district;
+	private String state;
+
 	
-	public Candidate(String party, String name,String id,int no){
+	public Candidate(String party,String id,int no,String district,String state, int electionId){
 		this.party = party;
-		this.name = name;
 		this.id = id;
 		this.no = no;
+		this.district = district;
+		this.state = state;
+		this.electionId = electionId;
 	}
 	public Candidate() {
 	}
@@ -19,12 +24,6 @@ public class Candidate {
 	}
 	public void setParty(String party) {
 		this.party = party;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getId() {
 		return id;
@@ -37,6 +36,24 @@ public class Candidate {
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public int getElectionId() {
+		return electionId;
+	}
+	public void setElectionId(int electionId) {
+		this.electionId = electionId;
 	}
 	
 	

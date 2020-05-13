@@ -9,21 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Models.Voter;
-import polling.Services.ElectionServices;
-import polling.Services.IElectionServices;
-
 /**
- * Servlet implementation class ValidateVoterServlet
+ * Servlet implementation class GetVotersServlet
  */
-@WebServlet("/ValidateVoterServlet")
-public class ValidateVoterServlet extends HttpServlet {
+@WebServlet("/GetVotersServlet")
+public class GetVotersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ValidateVoterServlet() {
+    public GetVotersServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,17 +37,9 @@ public class ValidateVoterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Voter v = new Voter();
-		v.setId(request.getParameter("id"));
+		RequestDispatcher ds = getServletContext().getRequestDispatcher("/WEB-INF/view/VoterList.jsp");
+		ds.forward(request, response);
 		
-		IElectionServices ie = new ElectionServices();
-		ie.validateVoter(v.getId());
-		
-		String msg = "Voter Validation Successful"; 
-				
-		request.setAttribute("msg", msg);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/VoterList.jsp");
-		dispatcher.forward(request, response);
 	}
 
 }

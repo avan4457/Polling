@@ -16,11 +16,11 @@ public interface ICandidateService {
 
 	public List<Candidate> getCandidate(String candidateId,int electionId,String election,String electionType);
 
-	public boolean removeCandidate(String candidateId, String electionId, String state);
+	public boolean removeCandidate(String candidateId, int electionId, String state);
 
 	public void addCandidate(int electionId,String electionType, String election, String party, String district);
 	
-	
+	public void closeCandidate(String candidateId, int electionId, String state);
 	
 
 }

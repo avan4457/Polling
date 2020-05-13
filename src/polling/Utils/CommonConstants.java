@@ -186,4 +186,11 @@ public class CommonConstants {
 
 	/** Constant for query id of remove a candidate in Query.xml */
 	public static final String QUERY_ID_REMOVE_CANDIDATE ="remove_candidate";
+	
+	/** Constant for query id of get election id by end date in Query.xml */
+	public static final String QUERY_ID_GET_END_DATE_BY_ELECTION_ID = "get_election_id_by_end_date";
+	
+	/** Constant for query id of change state of candidate in Query.xml */
+	public static final String QUERY_ID_ClOSE_CANDIDATE_STATE = "update_candidate_state";
+	
 	}

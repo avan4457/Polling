@@ -17,9 +17,11 @@ import java.io.IOException;
 import org.xml.sax.SAXException;
 
 import polling.Models.Election;
+import polling.Models.Voter;
 import polling.Utils.CommonConstants;
 import polling.Utils.CommonUtil;
-import polling.Utils.DBConnectionUtil; 
+import polling.Utils.DBConnectionUtil;
+import polling.Utils.QueryUtil; 
 
 public class ElectionServicesImp implements IElectionServices {
 
@@ -300,6 +302,30 @@ public class ElectionServicesImp implements IElectionServices {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public ArrayList<Voter> getVoterList(){
+		
+		ArrayList<Voter> arry = new ArrayList<Voter>();
+		
+				try {
+					con = DBConnectionUtil.getDBConnection();
+					preparedStatements = con.prepareStatement("select * from voter where status = 'Invalid'");
+					ResultSet result = preparedStatements.executeQuery();
+					
+					while(result.next()){
+						Voter voterLs = new Voter();
+						
+						voterLs.setId(result.getString(1));
+						voterLs.setDistrict(result.getString(2));
+						voterLs.setStatus(result.getString(3));
+					}
+				} catch (SQLException | ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return arry;
+			}
 
-}
+		}
 

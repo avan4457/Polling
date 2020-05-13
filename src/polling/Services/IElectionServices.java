@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import polling.Models.Election;
+import polling.Models.Voter;
 
 
 
@@ -61,4 +62,6 @@ public interface IElectionServices {
 	public boolean validateVoter(String id);
 	
 	public boolean validateCandidate(String id);
+	
+	public ArrayList<Voter> getVoterList();
 }

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import polling.Models.Election;
 import polling.Models.User;
+import polling.Models.Voter;
 import polling.Utils.CommonConstants;
 import polling.Utils.DBConnectionUtil;
 
@@ -164,6 +165,12 @@ public class ElectionServices implements IElectionServices {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public ArrayList<Voter> getVoterList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

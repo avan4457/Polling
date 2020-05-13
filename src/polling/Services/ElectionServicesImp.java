@@ -309,15 +309,16 @@ public class ElectionServicesImp implements IElectionServices {
 		
 				try {
 					con = DBConnectionUtil.getDBConnection();
-					preparedStatements = con.prepareStatement("select * from voter where status = 'Invalid'");
+					preparedStatements = con.prepareStatement("select * from voter where status = 'Invalid' order by district");
 					ResultSet result = preparedStatements.executeQuery();
 					
 					while(result.next()){
 						Voter voterLs = new Voter();
 						
 						voterLs.setId(result.getString(1));
-						voterLs.setDistrict(result.getString(2));
-						voterLs.setStatus(result.getString(3));
+						voterLs.setStatus(result.getString(2));
+						voterLs.setDistrict(result.getString(3));
+						arry.add(voterLs);
 					}
 				} catch (SQLException | ClassNotFoundException e) {
 					// TODO Auto-generated catch block

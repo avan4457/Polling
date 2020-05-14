@@ -1,7 +1,6 @@
 package polling.Servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Models.Election;
+import polling.Models.Candidate;
 import polling.Models.Voter;
-import polling.Services.IvoterServices;
-import polling.Services.VoterServices;
+import polling.Services.ElectionServices;
+import polling.Services.IElectionServices;
 
 /**
- * Servlet implementation class displyElectionsServlet
+ * Servlet implementation class ValidateCandidateServlet
  */
-@WebServlet("/displyElectionsServlet")
-public class displyElectionsServlet extends HttpServlet {
+@WebServlet("/ValidateCandidateServlet")
+public class ValidateCandidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public displyElectionsServlet() {
+    public ValidateCandidateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,19 +41,18 @@ public class displyElectionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-			response.setContentType("text/html");
-			String Vid=request.getParameter("Vid");
-			IvoterServices iv = new VoterServices();
-			
-			Voter voter =iv. getVoterByID(Vid); 
-			
-			ArrayList<Election> election =iv.currentElections();
-			request.setAttribute("election",election);
-			request.setAttribute("voter",voter);
-			
-			RequestDispatcher d = getServletContext().getRequestDispatcher("/selectElection.jsp");
-			d.forward(request, response);
+		
+		Candidate c = new Candidate();
+		c.setCandidateId(request.getParameter("id"));
+		
+		IElectionServices ie = new ElectionServices();
+		ie.validateCandidate(c.getCandidateId());
+		
+		String msg = "Candidate Validation Successful"; 
+				
+		request.setAttribute("msg", msg);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/CandidateList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

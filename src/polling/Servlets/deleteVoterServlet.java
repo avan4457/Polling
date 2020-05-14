@@ -34,13 +34,9 @@ public class deleteVoterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String id =request.getParameter("id");
-		/*IvoterServices iv = new VoterServices();
-		boolean isTrue=iv.upda();*/
-		/* if(isTrue == true){*/
-		
+		String Vid =request.getParameter("Vid");
 		IvoterServices iv = new VoterServices();		
-		Voter voter =iv. getVoterByID(id);
+		Voter voter =iv. getVoterByID(Vid);
 		request.setAttribute("voter", voter);
 		
 		RequestDispatcher d = getServletContext().getRequestDispatcher("/deleteAccount.jsp");

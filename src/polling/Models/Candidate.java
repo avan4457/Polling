@@ -1,45 +1,84 @@
 package polling.Models;
 
 public class Candidate {
-	private String id;
-	private String party;
+	private String candidateId;
 	private int electionId;
-	private int no;
+    private String name;
+	private String election;
+	private String electionType;
+	private String party;
+	private int number;
 	private String district;
 	private String state;
-
 	
-	public Candidate(String party,String id,int no,String district,String state, int electionId){
+	public Candidate(String candidateId,int electionId,String election,String electionType,String party,int number,String district,String state) {
+		this.candidateId = candidateId;
+		this.electionId = electionId;
+		this.election = election;
+		this.electionType = electionType;
 		this.party = party;
-		this.id = id;
-		this.no = no;
+		this.number = number;
 		this.district = district;
 		this.state = state;
-		this.electionId = electionId;
 	}
+	
 	public Candidate() {
+		// TODO Auto-generated constructor stub
 	}
-	public String getParty() {
+
+	public String getCandidateId () {
+		return candidateId ;
+	}
+	
+	public void setCandidateId (String candidateId) {
+		this.candidateId = candidateId;
+	}
+	
+	public String getElection () {
+		return election;
+	}
+	
+	/*public void setElection (String election) {
+		this.Election = election;
+	}*/
+	
+	public int getElectionId () {
+		return electionId;
+	}
+	
+//	public void setElectionId (int electionId) {
+//		this.ElectionId = electionId;
+//	}
+	
+	public String getElectionType () {
+		return electionType;
+
+	}
+	
+//	public void setElectionType (String electionType) {
+//		this.ElectionType = electionType;
+//	}
+	
+	public String getParty () {
 		return party;
 	}
-	public void setParty(String party) {
+	
+	public void setParty (String party) {
 		this.party = party;
 	}
-	public String getId() {
-		return id;
+	
+	public int getNumber () {
+		return number;
 	}
-	public void setId(String id) {
-		this.id = id;
+	
+	public void setNumber (int number) {
+		this.number = number;
 	}
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getDistrict() {
+	
+	public String getDistrict () {
 		return district;
 	}
+
 	public void setDistrict(String district) {
 		this.district = district;
 	}
@@ -49,12 +88,18 @@ public class Candidate {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public int getElectionId() {
-		return electionId;
-	}
+
 	public void setElectionId(int electionId) {
 		this.electionId = electionId;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
-	
+
 }

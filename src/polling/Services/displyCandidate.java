@@ -108,9 +108,9 @@ public class displyCandidate {
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2));
-						candidate.setNo(rs.getInt(3));
+						candidate.setNumber(rs.getInt(3));
 						candidateList.add(candidate);
 						
 					}
@@ -170,10 +170,10 @@ public class displyCandidate {
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}
@@ -357,10 +357,10 @@ public class displyCandidate {
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}

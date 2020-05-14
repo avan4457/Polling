@@ -453,5 +453,51 @@ public class UserServices implements IuserServices {
 		}
 		return result;
 	}
-	
+
+
+
+	@Override
+	public boolean checkCandidate(String Id) {
+		boolean exist = false;
+		
+		try {
+			conn = DBConnectionUtil.getDBConnection();
+			
+			prepdStatement = conn.prepareStatement("select * from candidate where userId = ?");
+			
+			prepdStatement.setString(1, Id);
+			ResultSet rs = prepdStatement.executeQuery();
+			
+			if(rs.next())
+				exist = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return exist;
+	}
+
+
+
+	@Override
+	public boolean checkCandidateStatus(String Id) {
+		boolean exist = false;
+		
+		try {
+			conn = DBConnectionUtil.getDBConnection();
+			
+			prepdStatement = conn.prepareStatement("select * from candidate where userId = ? and state = 'closed'");
+			
+			prepdStatement.setString(1, Id);
+			
+			ResultSet rs = prepdStatement.executeQuery();
+			
+			if(rs.next())
+				exist = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return exist;
+	}
 }

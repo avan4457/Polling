@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.Candidate;
+import polling.Services.IvoterServices;
+import polling.Services.VoterServices;
 import polling.Services.displyCandidate;
 
 /**
@@ -33,31 +35,33 @@ public class addParliamentResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id=request.getParameter("id");
+		String Vid=request.getParameter("Vid");
 		String party =request.getParameter("party");
 		String Cid = request.getParameter("Cid");
 		String Eid = request.getParameter("Eid");
 		String Election = request.getParameter("Election");
 		
-		boolean istrue = displyCandidate.addVoter(Election,party,id,Eid,Cid);
+		IvoterServices iv = new VoterServices();
 		
-		ArrayList<Candidate>candidate = displyCandidate.validate4(Cid,Eid);
+		boolean istrue = iv.addVoterVotes(Election,party,Vid,Eid,Cid);
+		
+		ArrayList<Candidate>candidate = iv.GetCandidateById(Cid,Eid);
 		request.setAttribute("candidate", candidate);
 		
-		request.setAttribute("id",id);
+		request.setAttribute("Vid",Vid);
 		request.setAttribute("party",party);
 		request.setAttribute("Eid",Eid);
 		request.setAttribute("Election",Election);
 		
 		if(istrue == true){
-			String re ="Vote has been entered successfully ";
-			request.setAttribute("re", re);
+			String topic ="Vote has been entered successfully ";
+			request.setAttribute("topic", topic);
 			RequestDispatcher d = getServletContext().getRequestDispatcher("/Candidatelist.jsp");
 			d.forward(request, response);
 		}
 		else{
-			String re ="Vote has been entered unsuccessfully ";
-			request.setAttribute("re", re);
+			String topic ="Vote has been entered unsuccessfully ";
+			request.setAttribute("topic", topic);
 			RequestDispatcher d = getServletContext().getRequestDispatcher("/Candidatelist.jsp");
 			d.forward(request, response);
 		}

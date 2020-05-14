@@ -282,5 +282,90 @@ select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.u
 		]]>
 	</Query>
   
+  <!--Candidate-->
+  	<Query id="get_election_id">
+         <![CDATA[        
+            select electionID from election where electionName = ? and electionType = ?
+        ]]>
+	</Query>
+	
+	<Query id="insert_candidate">
+         <![CDATA[        
+            insert into candidate values(?,?,?,?,?,?)
+        ]]>
+	</Query>
+	
+	<Query id="get_candidate_details">
+         <![CDATA[        
+            select * from candidate where userId = ? and electionId = ?
+        ]]>
+	</Query>
+	
+	<Query id="get_all_candidate_details">
+         <![CDATA[        
+            select * from candidate 
+        ]]>
+	</Query>
+	
+	<Query id="get_candidate_num">
+         <![CDATA[ 
+			select candidateNum from candidate
+			]]>
+	</Query>
+
+	<Query id="remove_candidate">
+         <![CDATA[        
+            delete from candidate where userId = ? and electionId = ? and state = ?
+        ]]>
+	</Query>
+	
+	<Query id="get_election_id_by_end_date">
+         <![CDATA[        
+            select endDate from election where electionID = ?
+        ]]>
+	</Query>
+	
+	<Query id="update_candidate_state">
+         <![CDATA[        
+           update candidate set state = ? where userId = ? and electionId = ?
+        ]]>
+	</Query>
+	
+	<Query id = "insert_campaign">
+		<![CDATA[
+			insert into campaign values (?,?,?,?,?,?)
+		]]>
+	</Query>
+	
+	<Query id="get_campaign_ids">
+         <![CDATA[        
+            select campaignid from campaign 
+        ]]>
+	</Query>
+	
+	<Query id="get_all_campaign_details">
+         <![CDATA[        
+            select * from campaign 
+        ]]>
+	</Query>
+	<Query id="get_campaign_details">
+         <![CDATA[        
+            select * from campaign where campaignid = ? and userid = ? and electionId = ?
+        ]]>
+	</Query>
+	
+	<Query id="update_campaign">
+         <![CDATA[        
+            update campaign as cam 
+            set cam.Heading = ?, cam.Statement = ?, cam.Description = ?
+            where cam.campaignid = ? and cam.userid = ? and cam.electionId = ?
+        ]]>
+	</Query>
+	
+	<Query id="remove_campaign">
+         <![CDATA[        
+            delete from campaign where campaignid = ? and userid = ? and electionId = ?
+        ]]>
+	</Query>
 </Querys>
 

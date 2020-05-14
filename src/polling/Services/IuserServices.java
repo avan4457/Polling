@@ -44,4 +44,8 @@ public interface IuserServices {
 	public boolean checkReg(String Id);
 	
 	public boolean removeProfilePic(String Id); 
+	
+	public boolean checkCandidate(String Id);
+	
+	public boolean checkCandidateStatus(String Id);
 }

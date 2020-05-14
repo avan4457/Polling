@@ -280,7 +280,7 @@ public class VoterServices implements IvoterServices {
 		
 		try {
 			con=DBConnectionUtil.getDBConnection();
-			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_ID));
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_ID_BY_NAME));
 			ps.setString(1,Election);
 			rs=ps.executeQuery();
 			
@@ -358,7 +358,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					ps.setString(1,district);
 					ps.setString(2,party);
-					ps.setString(3,"Valid");
+					ps.setString(3,"Approved");
 					ps.setString(4,Eid);
 					
 					
@@ -368,9 +368,9 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2));
-						candidate.setNo(rs.getInt(3));
+						candidate.setNumber(rs.getInt(3));
 						candidateList.add(candidate);
 						
 					}
@@ -411,10 +411,10 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}
@@ -449,7 +449,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 		
 		if(rs.next()){
 			String dis=rs.getString(3);
-			String status = "Valid";
+			String status = "Approved";
 				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_PARTIES));  
 				ps.setString(1,dis);
 				ps.setString(2,status);
@@ -568,10 +568,10 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}

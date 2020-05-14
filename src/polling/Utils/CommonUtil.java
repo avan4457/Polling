@@ -17,14 +17,6 @@ public class CommonUtil {
 	
 	public static final Properties properties = new Properties();
 
-	static {
-		try {
-			properties.load(QueryUtil.class.getResourceAsStream(CommonConstants.Property_File));	
-		} 
-		catch (IOException e) {
-			logr.log(Level.SEVERE, e.getMessage());
-		}
-	}
 	public static String generateId(User user){
 		Random rand = new Random();
 		String id = "u";

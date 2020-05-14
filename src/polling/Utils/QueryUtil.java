@@ -22,7 +22,7 @@ public class QueryUtil {
 		 * list. It refers tag name query
 		 */
 		nodeList = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(new File(System.getProperty("catalina.base") + "\\wtpwebapps\\Polling\\WEB-INF\\Query.xml"))
+				.parse(new File(System.getProperty("catalina.base") + "\\wtpwebapps\\Project\\WEB-INF\\Query.xml"))
 				.getElementsByTagName(CommonConstants.Tag_Name);
 		/*
 		 * Extract the node from node list using query id query id is taken from

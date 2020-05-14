@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Services.CampaignService;
-import polling.Services.CandidateService;
-import polling.Services.ICampaignService;
-import polling.Services.ICandidateService;
+import polling.Models.Candidate;
+import polling.Models.Voter;
+import polling.Services.ElectionServices;
+import polling.Services.IElectionServices;
 
 /**
- * Servlet implementation class DeleteCandidate
+ * Servlet implementation class ValidateCandidateServlet
  */
-@WebServlet(description = "Delete the candidate profile and lose access to participating in the election", urlPatterns = { "/DeleteCandidate" })
-public class DeleteCandidate extends HttpServlet {
+@WebServlet("/ValidateCandidateServlet")
+public class ValidateCandidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteCandidate() {
+    public ValidateCandidateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,15 +41,17 @@ public class DeleteCandidate extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-
-		String candidateId = request.getParameter("canId");			
-		int electionId = Integer.parseInt(request.getParameter("eId"));
-		String state = request.getParameter("state");
-		ICandidateService iCandidateService = new CandidateService();
-		boolean isTrue = iCandidateService.removeCandidate(candidateId,electionId,state);
-
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home.jsp");
+		
+		Candidate c = new Candidate();
+		c.setCandidateId(request.getParameter("id"));
+		
+		IElectionServices ie = new ElectionServices();
+		ie.validateCandidate(c.getCandidateId());
+		
+		String msg = "Candidate Validation Successful"; 
+				
+		request.setAttribute("msg", msg);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/CandidateList.jsp");
 		dispatcher.forward(request, response);
 	}
 

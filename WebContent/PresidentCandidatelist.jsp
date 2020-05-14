@@ -22,9 +22,9 @@
 		 	<%for(Candidate candidate : can){ %>
 		 	<input type="hidden" name="party" value="<%=candidate.getParty()%>">
 		 	 <img src="images/<%=candidate.getParty()%>.png" width="70" height="70" alt="Profile picture" >
-  			 <%=candidate.getNo()%>
-  			<input type="radio" name="Cid" value="<%=candidate.getId()%>">
-  			<label for="<%=candidate.getId()%>"><%=candidate.getName()%></label><br><br>
+  			 <%=candidate.getNumber()%>
+  			<input type="radio" name="Cid" value="<%=candidate.getCandidateId() %>">
+  			<label for="<%=candidate.getCandidateId()%>"><%=candidate.getName()%></label><br><br>
   			
 			  	
   			<%} %>

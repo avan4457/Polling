@@ -31,7 +31,7 @@ if(topic == null)
   			<select  name="Election">
 
   			<%for (Election election:elec){ %>
-    			<option  ><%=election.getName() %></option>
+    			<option  ><%=election.getElectionName() %></option>
 
     			<%} %>
   			</select>

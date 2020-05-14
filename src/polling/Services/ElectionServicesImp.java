@@ -170,7 +170,7 @@ public class ElectionServicesImp implements IElectionServices {
 		try {
 			con = DBConnectionUtil.getDBConnection();
 			preparedStatements = con.prepareStatement(
-					"update election set election.electionName = ? , election.electionType = ?, election.startDate = ?, election.endDate = ?  election.electionID = ? and election.startDate > current_Date()");
+					"update election set election.electionName = ? , election.electionType = ?, election.startDate = ?, election.endDate = ?  where election.electionID = ? and election.startDate > current_Date()");
 
 			preparedStatements.setString(CommonConstants.INDEX_ONE, election.getElectionName());
 			preparedStatements.setString(CommonConstants.INDEX_TWO, election.getElectionType());
@@ -210,8 +210,10 @@ public class ElectionServicesImp implements IElectionServices {
 			preparedStatements = con.prepareStatement(
 					"delete from election where election.electionID = ? and election.startDate > current_date()");
 			preparedStatements.setInt(CommonConstants.INDEX_ONE, electionID);
-			res1 = preparedStatements.execute();
+			int i = preparedStatements.executeUpdate();
 
+			if(i>0)
+				res1 = true;
 		} catch (SQLException | ClassNotFoundException e) {
 			logr.log(Level.SEVERE, e.getMessage());
 		} finally {

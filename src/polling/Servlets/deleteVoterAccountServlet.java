@@ -41,7 +41,7 @@ public class deleteVoterAccountServlet extends HttpServlet {
 		
 		if(istrue == true){
 			
-			RequestDispatcher d = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
+			RequestDispatcher d = getServletContext().getRequestDispatcher("/Home.jsp");
 			d.forward(request, response);
 		}
 		else{		

@@ -45,6 +45,17 @@
 	</div>
 	</nav>
 	<br>
+	
+	<%
+		String prin2 = "";
+		prin2 = (String) request.getAttribute("msg2");
+		if (prin2 == null)
+			prin2 = "WELCOME!!";
+	%>
+
+	<h4>
+		<center><%=prin2%></center>
+	</h4>
 
 
 	<table class="table table-hover table-dark">

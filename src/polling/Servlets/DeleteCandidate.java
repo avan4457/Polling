@@ -43,14 +43,19 @@ public class DeleteCandidate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
-		String candidateId = request.getParameter("canId");			
-		String electionId = request.getParameter("eId");
+		String candidateId = request.getParameter("cid");			
+		int electionId = Integer.parseInt(request.getParameter("eid"));
 		String state = request.getParameter("state");
 		ICandidateService iCandidateService = new CandidateService();
 		boolean isTrue = iCandidateService.removeCandidate(candidateId,electionId,state);
-
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/user.jsp");
-		dispatcher.forward(request, response);
+		
+		if(isTrue == true) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/voterProfile.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

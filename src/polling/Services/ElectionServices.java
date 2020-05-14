@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.User;
 import polling.Models.Voter;
@@ -94,36 +95,6 @@ public class ElectionServices implements IElectionServices {
 	}
 
 	@Override
-	public Election getElectionByID(int electionID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Election> getElection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void upDateElection(Election election, int electionID) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteElection(int electionID) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addElection(Election election) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean validateVoter(String id) {
 		
 		boolean res = false;
@@ -166,9 +137,45 @@ public class ElectionServices implements IElectionServices {
 		
 		return res;
 	}
+	
+	@Override
+	public Election getElectionByID(int electionID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Election> getElection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void upDateElection(Election election, int electionID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteElection(int electionID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addElection(Election election) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public ArrayList<Voter> getVoterList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Candidate> getCandidateList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

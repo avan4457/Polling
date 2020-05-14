@@ -40,22 +40,20 @@ public class updateServlets extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String id =request.getParameter("id");
-		/*IvoterServices iv = new VoterServices();
-		boolean isTrue=iv.upda();*/
-		/* if(isTrue == true){*/
+		String Vid =request.getParameter("Vid");
+	
 		
 	IvoterServices iv = new VoterServices();		
-		Voter voter =iv. getVoterByID(id);
+		Voter voter =iv. getVoterByID(Vid);
 		request.setAttribute("voter", voter);
 		
 		IuserServices iu = new UserServices();
-		User user=iu.getUserById(id);
+		User user=iu.getUserById(Vid);
 		request.setAttribute("user", user);
 		
 				RequestDispatcher d = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
 				d.forward(request, response);
-			/*}*/
+		
 	}
 
 }

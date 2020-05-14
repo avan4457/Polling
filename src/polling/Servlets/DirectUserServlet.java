@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.User;
 import polling.Models.Voter;
+import polling.Services.CandidateService;
+import polling.Services.ICandidateService;
 import polling.Services.IuserServices;
 import polling.Services.IvoterServices;
 import polling.Services.UserServices;
@@ -73,7 +75,10 @@ public class DirectUserServlet extends HttpServlet {
 		else{
 			//boolean check exist by method
 			//if() candidate is not registered
-			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
+			if(!iuserServices.checkCandidate(user.getId()) || iuserServices.checkCandidateStatus(user.getId()))
+			dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
+			else
+				dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 			//else to candidate profile if registered
 		}
 		dispatcher.forward(request, response);

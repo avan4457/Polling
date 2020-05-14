@@ -9,41 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import polling.Models.Voter;
-import polling.Services.IvoterServices;
-import polling.Services.VoterServices;
-
 /**
- * Servlet implementation class deleteVoterServlet
+ * Servlet implementation class GetCandidatesServlet
  */
-@WebServlet("/deleteVoterServlet")
-public class deleteVoterServlet extends HttpServlet {
+@WebServlet("/GetCandidatesServlet")
+public class GetCandidatesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deleteVoterServlet() {
+    public GetCandidatesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		String Vid =request.getParameter("Vid");
-		IvoterServices iv = new VoterServices();		
-		Voter voter =iv. getVoterByID(Vid);
-		request.setAttribute("voter", voter);
-		
-		RequestDispatcher d = getServletContext().getRequestDispatcher("/deleteAccount.jsp");
-		d.forward(request, response);
-		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/CandidateList.jsp");
+		dispatcher.forward(request, response);
 		
 	}
 
-	
 }

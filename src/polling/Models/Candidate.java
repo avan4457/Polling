@@ -3,10 +3,11 @@ package polling.Models;
 public class Candidate {
 	private String candidateId;
 	private int electionId;
+    private String name;
 	private String election;
 	private String electionType;
 	private String party;
-	private int    number;
+	private int number;
 	private String district;
 	private String state;
 	
@@ -19,16 +20,19 @@ public class Candidate {
 		this.number = number;
 		this.district = district;
 		this.state = state;
-		
 	}
 	
+	public Candidate() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCandidateId () {
 		return candidateId ;
 	}
 	
-	/*public void setCandidateId (String candidateId) {
-		this.CandidateId = candidateId;
-	}*/
+	public void setCandidateId (String candidateId) {
+		this.candidateId = candidateId;
+	}
 	
 	public String getElection () {
 		return election;
@@ -48,6 +52,7 @@ public class Candidate {
 	
 	public String getElectionType () {
 		return electionType;
+
 	}
 	
 //	public void setElectionType (String electionType) {
@@ -58,31 +63,43 @@ public class Candidate {
 		return party;
 	}
 	
-	/*public void setParty (String party) {
-		this.Party = party;
-	}*/
+	public void setParty (String party) {
+		this.party = party;
+	}
 	
 	public int getNumber () {
 		return number;
 	}
 	
-	/*public void setNumber (int number) {
-		this.Number = number;
-	}*/
+	public void setNumber (int number) {
+		this.number = number;
+	}
 	
 	public String getDistrict () {
 		return district;
 	}
-	
-//	public void setDistrict (String district) {
-//		this.District = district;
-//	}
-	
-	public String getState () {
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getState() {
 		return state;
 	}
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setElectionId(int electionId) {
+		this.electionId = electionId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
-	/*public void setState (String state) {
-		this.State = state;
-	}*/
+
 }

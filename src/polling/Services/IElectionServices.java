@@ -3,6 +3,7 @@ package polling.Services;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.Voter;
 
@@ -64,4 +65,6 @@ public interface IElectionServices {
 	public boolean validateCandidate(String id);
 	
 	public ArrayList<Voter> getVoterList();
+	
+	public ArrayList<Candidate> getCandidateList();
 }

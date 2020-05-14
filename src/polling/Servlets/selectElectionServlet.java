@@ -32,30 +32,30 @@ public class selectElectionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String Election = request.getParameter("Election");
-		String id = request.getParameter("id");
-		/*int Eid = Integerpassint(request.getParameter("Eid"));*/
+		String Vid = request.getParameter("Vid");
+	
 		
 		
 		IvoterServices iv = new VoterServices();
 		int Ei=iv.getElectionId(Election);
 		String Eid=Integer.toString(Ei);
-		boolean istrue=iv.voterValidate(id,Eid);	//1
+		boolean istrue=iv.voterValidate(Vid,Eid);	
 		
 		String topic = "status is invalid or you have already voted for " +Election+" Election";
 		
-		request.setAttribute("id", id);
+		request.setAttribute("Vid", Vid);
 		request.setAttribute("Eid",Eid);
-		Voter voter =iv. getVoterByID(id);
+		Voter voter =iv. getVoterByID(Vid);
 		request.setAttribute("voter",voter);
 		if(istrue == true){
 			if(Election.equals("President") ){
-				List<Candidate> candidate= displyCandidate.validate1(Election,Eid);
+				List<Candidate> candidate= iv.GetPresidentCandidatelist(Election,Eid);
 				request.setAttribute("candidate", candidate);
 				RequestDispatcher d = getServletContext().getRequestDispatcher("/PresidentCandidatelist.jsp");
 				d.forward(request, response);
 			}
 			else if(Election.equals("Parliament")){
-				List<String> party= displyCandidate.validate2(Election,id,Eid);
+				List<String> party= iv.GetPartyies(Election,Vid,Eid);
 				request.setAttribute("party", party);
 				RequestDispatcher d = getServletContext().getRequestDispatcher("/selectAParty.jsp");
 				d.forward(request, response);

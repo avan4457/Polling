@@ -46,13 +46,13 @@ public interface IElectionServices {
 	 * @param election
 	 * @param electionID
 	 */
-	public void upDateElection(Election election, int electionID);
+	public boolean upDateElection(Election election, int electionID);
 	
 	/**
 	 * delete election
 	 * @param electionID
 	 */
-	public void deleteElection(int electionID);
+	public boolean deleteElection(int electionID);
 	
 	/**
 	 * add election

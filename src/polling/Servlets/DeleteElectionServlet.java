@@ -16,29 +16,34 @@ import java.io.IOException;
 public class DeleteElectionServlet extends HttpServlet {
 
 	private static final long serialVersionEID = 1871871796669342804L;
-	
-	public DeleteElectionServlet(){
+
+	public DeleteElectionServlet() {
 		super();
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String msg2 = "WELCOME!!";
 		response.setContentType("text/html");
 
-		int electionID = Integer.parseInt(request.getParameter("electionID"));			
-		
+		int electionID = Integer.parseInt(request.getParameter("electionID"));
+
 		IElectionServices iElectionServices = new ElectionServicesImp();
-		iElectionServices.deleteElection(electionID);
-		
+		boolean resul = iElectionServices.deleteElection(electionID);
+		request.setAttribute("msg2", msg2);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/ElectionList.jsp");
+		if (resul == false) {
+			msg2 = "Sorry the Election is currently running or unavailable!!";
+			request.setAttribute("msg2", msg2);
+			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/ElectionList.jsp");
+
+		}
 		dispatcher.forward(request, response);
 	}
 
-	
 }

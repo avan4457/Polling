@@ -14,7 +14,7 @@ import polling.Models.User;
 import polling.Models.Voter;
 import polling.Utils.CommonConstants;
 import polling.Utils.DBConnectionUtil;
-
+//ElectionServices
 public class ElectionServices implements IElectionServices {
 
 	public static Connection con;
@@ -109,7 +109,6 @@ public class ElectionServices implements IElectionServices {
 			if(check > 0)
 				res = true;
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -150,17 +149,7 @@ public class ElectionServices implements IElectionServices {
 		return null;
 	}
 
-	@Override
-	public void upDateElection(Election election, int electionID) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void deleteElection(int electionID) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void addElection(Election election) {
@@ -178,6 +167,18 @@ public class ElectionServices implements IElectionServices {
 	public ArrayList<Candidate> getCandidateList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean upDateElection(Election election, int electionID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteElection(int electionID) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

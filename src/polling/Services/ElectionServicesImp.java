@@ -163,13 +163,14 @@ public class ElectionServicesImp implements IElectionServices {
 	 */
 
 	@Override
-	public void upDateElection(Election election, int electionID) {
+	public boolean upDateElection(Election election, int electionID) {
 		// TODO Auto-generated method stub
+		boolean res = false;
 
 		try {
 			con = DBConnectionUtil.getDBConnection();
 			preparedStatements = con.prepareStatement(
-					"update election set election.electionName = ? , election.electionType = ?, election.startDate = ?, election.endDate = ? where election.electionID = ?");
+					"update election set election.electionName = ? , election.electionType = ?, election.startDate = ?, election.endDate = ?  election.electionID = ? and election.startDate > current_Date()");
 
 			preparedStatements.setString(CommonConstants.INDEX_ONE, election.getElectionName());
 			preparedStatements.setString(CommonConstants.INDEX_TWO, election.getElectionType());
@@ -177,7 +178,10 @@ public class ElectionServicesImp implements IElectionServices {
 			preparedStatements.setDate(CommonConstants.INDEX_FOUR, Date.valueOf(election.getEndDate()));
 			preparedStatements.setInt(CommonConstants.INDEX_FIVE, election.getElectionID());
 
-			preparedStatements.executeUpdate();
+			int i = preparedStatements.executeUpdate();
+			if (i > 0) {
+				res = true;
+			}
 
 		} catch (SQLException | ClassNotFoundException e) {
 			logr.log(Level.SEVERE, e.getMessage());
@@ -194,16 +198,19 @@ public class ElectionServicesImp implements IElectionServices {
 				logr.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		return res;
 	}
 
 	@Override
-	public void deleteElection(int electionID) {
+	public boolean deleteElection(int electionID) {
 		// TODO Auto-generated method stub
+		boolean res1 = false;
 		try {
 			con = DBConnectionUtil.getDBConnection();
-			preparedStatements = con.prepareStatement("delete from election where election.electionID = ?");
+			preparedStatements = con.prepareStatement(
+					"delete from election where election.electionID = ? and election.startDate > current_date()");
 			preparedStatements.setInt(CommonConstants.INDEX_ONE, electionID);
-			preparedStatements.execute();
+			res1 = preparedStatements.execute();
 
 		} catch (SQLException | ClassNotFoundException e) {
 			logr.log(Level.SEVERE, e.getMessage());
@@ -219,6 +226,7 @@ public class ElectionServicesImp implements IElectionServices {
 				logr.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		return res1;
 	}
 
 	@Override
@@ -325,7 +333,8 @@ public class ElectionServicesImp implements IElectionServices {
 
 		try {
 			con = DBConnectionUtil.getDBConnection();
-			preparedStatements = con.prepareStatement("select * from candidate where state = 'Nominated' order by district");
+			preparedStatements = con
+					.prepareStatement("select * from candidate where state = 'Nominated' order by district");
 			ResultSet result = preparedStatements.executeQuery();
 
 			while (result.next()) {
@@ -338,7 +347,7 @@ public class ElectionServicesImp implements IElectionServices {
 				candiLs.setDistrict(result.getString(5));
 				candiLs.setState(result.getString(6));
 				arr.add(candiLs);
-				
+
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

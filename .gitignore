@@ -3,3 +3,4 @@ src/polling/Utils/DBConnect.java
 .project
 .classpath
 build
+/bin/

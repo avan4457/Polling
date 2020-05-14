@@ -1,16 +1,20 @@
 package polling.Services;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.User;
+import polling.Models.Voter;
+import polling.Utils.CommonConstants;
 import polling.Utils.DBConnectionUtil;
-
+//ElectionServices
 public class ElectionServices implements IElectionServices {
 
 	public static Connection con;
@@ -31,11 +35,13 @@ public class ElectionServices implements IElectionServices {
 			
 			while(rs.next()){
 				Election e = new Election();
-				e.setId(rs.getInt(1));
-				e.setName(rs.getString(2));
-				e.setType(rs.getString(3));
-				e.setStartDate(rs.getDate(4));
-				e.setEndDate(rs.getDate(5));
+				e.setElectionID(rs.getInt(1));
+				e.setElectionName(rs.getString(2));
+				e.setElectionType(rs.getString(3));
+				Date sDate = rs.getDate(CommonConstants.INDEX_FOUR);
+				Date eDate = rs.getDate(CommonConstants.INDEX_FIVE);
+				e.setStartDate(sDate.toLocalDate());
+				e.setEndDate(eDate.toLocalDate());
 				elec.add(e);
 			}
 			
@@ -86,6 +92,93 @@ public class ElectionServices implements IElectionServices {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public boolean validateVoter(String id) {
+		
+		boolean res = false;
+		try {
+			con = DBConnectionUtil.getDBConnection();
+			
+			ps = con.prepareStatement("update voter set status = 'Valid' where id = ?");
+			ps.setString(1, id);
+			
+			int check = ps.executeUpdate();
+			
+			if(check > 0)
+				res = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public boolean validateCandidate(String id) {
+		
+		boolean res = false;
+		try {
+			con = DBConnectionUtil.getDBConnection();
+			
+			ps = con.prepareStatement("update candidate set state = 'Approved' where userId = ?");
+			ps.setString(1, id);
+			
+			int check = ps.executeUpdate();
+			
+			if(check > 0)
+				res = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public Election getElectionByID(int electionID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Election> getElection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void addElection(Election election) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Voter> getVoterList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Candidate> getCandidateList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean upDateElection(Election election, int electionID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteElection(int electionID) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

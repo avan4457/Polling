@@ -17,7 +17,6 @@ import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.Voter;
 import polling.Utils.CommonConstants;
-import polling.Utils.DBConnect;
 import polling.Utils.DBConnectionUtil;
 import polling.Utils.QueryUtil;
 
@@ -89,8 +88,8 @@ public class VoterServices implements IvoterServices {
 			
 			while(rs.next()){
 				Election election= new Election();
-				election.setId(rs.getInt(1));
-				election.setName(rs.getString(2));
+				election.setElectionID(rs.getInt(1));
+				election.setElectionName(rs.getString(2));
 				arr.add(election);
 			}
 		} catch (SQLException | ClassNotFoundException | SAXException | IOException | ParserConfigurationException e) {
@@ -282,7 +281,7 @@ public class VoterServices implements IvoterServices {
 		
 		try {
 			con=DBConnectionUtil.getDBConnection();
-			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_ID));
+			ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_ID_BY_NAME));
 			ps.setString(1,Election);
 			rs=ps.executeQuery();
 			
@@ -360,7 +359,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					ps.setString(1,district);
 					ps.setString(2,party);
-					ps.setString(3,"Valid");
+					ps.setString(3,"Approved");
 					ps.setString(4,Eid);
 					
 					
@@ -370,9 +369,9 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2));
-						candidate.setNo(rs.getInt(3));
+						candidate.setNumber(rs.getInt(3));
 						candidateList.add(candidate);
 						
 					}
@@ -405,7 +404,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 		try {
 			con =DBConnectionUtil.getDBConnection();
 					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_LIST_WITH_PARTY)); 
-					ps.setString(1,"Valid");
+					ps.setString(1,"Approved");
 					ps.setString(2,Eid);
 					rs=ps.executeQuery();
 					
@@ -413,10 +412,10 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}
@@ -451,7 +450,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 		
 		if(rs.next()){
 			String dis=rs.getString(3);
-			String status = "Valid";
+			String status = "Approved";
 				ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_PARTIES));  
 				ps.setString(1,dis);
 				ps.setString(2,status);
@@ -570,10 +569,10 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 					
 					while(rs.next()){
 						Candidate candidate = new Candidate();
-						candidate.setId(rs.getString(1));
+						candidate.setCandidateId(rs.getString(1));
 						candidate.setName(rs.getString(2)); 
 						candidate.setParty(rs.getString(3));
-						candidate.setNo(rs.getInt(4));
+						candidate.setNumber(rs.getInt(4));
 						candidateList.add(candidate);
 						
 					}

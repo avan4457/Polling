@@ -33,8 +33,10 @@ if(topic == null)
 		<form action="selectElectionServlet" method="post" class="details">
   			<label >Choose a Election:</label>
   			<select  name="Election">
+
   			<%for (Election election:elec){ %>
-    			<option  ><%=election.getName() %></option>
+    			<option  ><%=election.getElectionName() %></option>
+
     			<%} %>
   			</select>
   			<input type="hidden" name="Vid" value= "<%=voter.getId()%>">

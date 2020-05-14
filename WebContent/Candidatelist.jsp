@@ -14,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 <section class="wave">
 <% String Vid= (String) request.getAttribute("Vid"); %>
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
@@ -39,8 +40,8 @@ if(topic == null){
 	<form action="addParliamentResultServlet" method="post" class="details">
 	<%for(Candidate candidate : ca){ %>
 		 	<img src="images/<%=candidate.getParty() %>.png" width="70" height="70" alt="Party picture" ><br>
-		 	 <%=candidate.getNo()%>
-  			<input type="hidden" name="Cid" value="<%=candidate.getId()%>" readonly>
+		 	 <%=candidate.getParty()%>
+  			<input type="hidden" name="Cid" value="<%=candidate.getCandidateId()%>" readonly>
   			<%=candidate.getName()%>
   			<%} %><br>
 			<input type="hidden" name="party" value="<%=party %>">

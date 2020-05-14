@@ -16,7 +16,7 @@ import polling.Models.Voter;
  */
 
 public interface IElectionServices {
-	
+
 	/** Initialize Logger **/
 	
 	public static final Logger logr = Logger.getLogger(IElectionServices.class.getName());

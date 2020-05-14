@@ -2,12 +2,13 @@
     pageEncoding="ISO-8859-1"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@page import="java.util.ArrayList"%>
+    <!-- IT19390260 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- <link rel="stylesheet" href="deleteAccountStyle.css">
+ <link rel="stylesheet" href="selectElectionStyle.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -16,11 +17,14 @@
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
 			<%ArrayList<String> par = (ArrayList) request.getAttribute("party"); %>
 			<% String Vid= (String) request.getAttribute("Vid"); %>
-		<form action="selectParliamentCandidateServlet" method="post">
+		<div class="container">
+			<span>parties</span>
+			</div><br><br><br>
+		<form action="selectParliamentCandidateServlet" method="post" class="details">
   			<label>Choose a Party:</label>
   			<select  name="party">
   			<%for (String Party:par){ %>
-    			<option ><%=Party%></option>
+    			<option imagesrc="images/<%=Party%>.png" width="20px" height="20px" imagePosition="left"><%=Party%></option>
     			<%} %>
   			</select>
   			 <input type="hidden"  name="Eid" value="<%=Eid %>"> 

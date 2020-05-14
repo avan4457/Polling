@@ -30,6 +30,7 @@ public class VoterServices implements IvoterServices {
 	private static Statement stmt;
 	private static ResultSet rs ;
 	
+	//IT19390260 
 	@Override
 	public boolean RegisterVoter(String Vid, String district, String status) {
 		boolean istrue=false;
@@ -403,7 +404,7 @@ public  ArrayList<Candidate> GetParliamentCandidatelist(String party,String Vid,
 		try {
 			con =DBConnectionUtil.getDBConnection();
 					ps = con.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_LIST_WITH_PARTY)); 
-					ps.setString(1,"Valid");
+					ps.setString(1,"Approved");
 					ps.setString(2,Eid);
 					rs=ps.executeQuery();
 					

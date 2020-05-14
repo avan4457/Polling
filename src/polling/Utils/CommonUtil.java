@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import polling.Models.User;
-import polling.Services.ICandidateService;
 import polling.Services.IElectionServices;
 
 public class CommonUtil {

@@ -12,7 +12,7 @@
 <title>Create Election Ready</title>
 </head>
 <body>
-
+	<!--  -->
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h2 class="display-4">

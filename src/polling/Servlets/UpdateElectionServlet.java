@@ -17,7 +17,7 @@ import polling.Services.IElectionServices;
 
 @WebServlet("/UpdateElectionServlet")
 public class UpdateElectionServlet extends HttpServlet {
-
+//Update election servlet
 	private static final long serialVersionUID = 1L;
 
 	public UpdateElectionServlet() {

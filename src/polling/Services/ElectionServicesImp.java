@@ -340,10 +340,10 @@ public class ElectionServicesImp implements IElectionServices {
 			while (result.next()) {
 				Candidate candiLs = new Candidate();
 
-				candiLs.setId(result.getString(1));
+				candiLs.setCandidateId(result.getString(1));
 				candiLs.setElectionId(result.getInt(2));
 				candiLs.setParty(result.getString(3));
-				candiLs.setNo(result.getInt(4));
+				candiLs.setNumber(result.getInt(4));
 				candiLs.setDistrict(result.getString(5));
 				candiLs.setState(result.getString(6));
 				arr.add(candiLs);

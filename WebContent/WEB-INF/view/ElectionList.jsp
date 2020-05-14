@@ -70,7 +70,7 @@
 			<td><%=election.getStartDate()%></td>
 			<td><%=election.getEndDate()%></td>
 			<td>
-				<form method="POST" action="ValidateVoterServlet">
+				<form method="POST" action=GetElectionServlet>
 					<input type="hidden" name="electionID"
 						value="<%=election.getElectionID()%>" /> <input type="submit"
 						value="Select Election" class="btn btn-light" />

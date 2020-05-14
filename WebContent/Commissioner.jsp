@@ -147,6 +147,7 @@
 		</table>
 	</form>
 
+<<<<<<< HEAD
 
 	<div class="container">
 		<h2 class="mb-3">Choose the election to generate results..</h2>
@@ -165,5 +166,24 @@
 				class="btn btn-primary" />
 		</form>
 	</div>
+=======
+<div class="container" align = "center" style="margin-bottom: 10px">
+	 <h4 class="mb-3">Choose the election to generate results..</h4>
+	<form action="GenResultServlet" method="POST">
+		<%
+			for (Election e : eList) {
+		%>
+		<div class="form-check">
+		<input type="radio" class="form-check-input" name="election"
+			value=<%=e.getElectionID()%> /><%=e.getElectionName()%><br>
+		</div>
+		<%
+			}
+		%>
+		<input type="submit" name="submit" value="See Results"
+			class="btn btn-primary" />
+	</form>
+</div>
+>>>>>>> d9f15c5c289ae0f21cefe64c59bcfb5f5fe0d48c
 </body>
 </html>

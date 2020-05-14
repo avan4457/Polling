@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/DeleteElectionServlet")
 public class DeleteElectionServlet extends HttpServlet {
-
+//delete servlet
 	private static final long serialVersionEID = 1871871796669342804L;
 
 	public DeleteElectionServlet() {

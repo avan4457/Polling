@@ -80,7 +80,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_CHECKED_VOTES_TABLE ="checked_votes_table"; //"select * from votes where electionId= ? and userId=?  "
 	
-	//public static final String QUERY_ID_GET_ELECTION_ID = "election_id_by_name"; //"select * from election where startDate <=SYSDATE() and endDate>=SYSDATE() and electionName = ?"
+	public static final String QUERY_ID_GET_ELECTION_ID_BY_NAME = "election_id_by_name"; //conflict//"select * from election where startDate <=SYSDATE() and endDate>=SYSDATE() and electionName = ?"
 	
 	public static final String QUERY_ID_DELETE_VOTER_BY_ID = "delete_voter"; // "delete from voter  where id= ?"
 	
@@ -186,11 +186,11 @@ public class CommonConstants {
 
 	/** Constant for query id of remove a candidate in Query.xml */
 	public static final String QUERY_ID_REMOVE_CANDIDATE ="remove_candidate";
-	
+
 	/** Constant for query id of get election id by end date in Query.xml */
 	public static final String QUERY_ID_GET_END_DATE_BY_ELECTION_ID = "get_election_id_by_end_date";
-	
+
 	/** Constant for query id of change state of candidate in Query.xml */
 	public static final String QUERY_ID_ClOSE_CANDIDATE_STATE = "update_candidate_state";
-	
+
 	}

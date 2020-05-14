@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<% String Vid= (String) request.getAttribute("Vid"); %>
+<%String Vid= (String) request.getAttribute("Vid"); %>
 		 <% String Eid= (String) request.getAttribute("Eid"); %> 
 		 <% String Election= (String) request.getAttribute("Election"); %>
 		  <%ArrayList<Candidate> ca = (ArrayList) request.getAttribute("candidate"); %> 
@@ -33,8 +33,8 @@ if(topic == null){
 	<h4><%=topic %></h4>
 	<%for(Candidate candidate : ca){ %>
 		 	<img src="images/<%=candidate.getParty() %>.png" width="70" height="70" alt="Party picture" ><br>
-		 	 <%=candidate.getNo()%>
-  			<input type="hidden" name="Cid" value="<%=candidate.getId()%>" readonly>
+		 	 <%=candidate.getParty()%>
+  			<input type="hidden" name="Cid" value="<%=candidate.getCandidateId()%>" readonly>
   			<%=candidate.getName()%>
   			<%} %><br>
 			<input type="hidden" name="party" value="<%=party %>">

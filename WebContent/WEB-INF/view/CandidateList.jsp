@@ -18,18 +18,26 @@
 <title>Validate Candidates | Polling</title>
 </head>
 <body>
+<%
+String res = (String)request.getAttribute("msg");
+if(res == null)
+	 res = "Validate candidates here..";
+%>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h2 class="display-4">
 				<center>CANDIDATE LIST</center>
 			</h2>
+			<h3>
+				<center><%=res %></center>
+			</h3>
 		</div>
 	</div>
 
 
 	<%
 			IElectionServices icandidateList = new ElectionServicesImp();
-			ArrayList<Candidate> arr = new ArrayList<Candidate>();
+			ArrayList<Candidate> arr = icandidateList.getCandidateList();
 			
 			if (arr.size() > 0) {
 		%>
@@ -47,20 +55,20 @@
 				for(Candidate candidate: arr){
 					User user = new User();
 					IuserServices iuser = new UserServices();
-					user = iuser.getUserById(candidate.getId());
+					user = iuser.getUserById(candidate.getCandidateId());
 			%>
 		<tr>
 			<td><%=user.getId()%></td>
-			<td><%=candidate.getElectionId()%></td>
+			<td><%=candidate.getCandidateId() %></td>
 			<td><%=user.getName()%></td>
-			<td><%=candidate.getDistrict()%></td>
+			<td><%=candidate.getDistrict() %></td>
 			<td><%=candidate.getParty()%></td>
 			<td><%=candidate.getState()%></td>
 			
 
 			<td>
 				<form method="POST" action="ValidateCandidateServlet">
-					<input type="hidden" name="id" value="<%=candidate.getId()%>"><input
+					<input type="hidden" name="id" value="<%=candidate.getCandidateId() %>" ><input
 						type="submit" value="Validate" class="btn btn-light">
 				</form>
 			</td>
@@ -69,7 +77,7 @@
 			}
 			} else {
 		%>
-		<h2>No Voters to Validate</h2>
+		<h2>No Candidates to Validate</h2>
 		<%
 			}
 		%>

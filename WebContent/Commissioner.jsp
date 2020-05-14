@@ -124,8 +124,8 @@
 		</table>
 	</form>
 
-<div class="container">
-	 <h2 class="mb-3">Choose the election to generate results..</h2>
+<div class="container" align = "center" style="margin-bottom: 10px">
+	 <h4 class="mb-3">Choose the election to generate results..</h4>
 	<form action="GenResultServlet" method="POST">
 		<%
 			for (Election e : eList) {

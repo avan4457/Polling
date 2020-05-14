@@ -1,5 +1,5 @@
 package polling.Models;
-
+/*IT19390260*/
 public class Voter {
 	private String id;
 	private String status;

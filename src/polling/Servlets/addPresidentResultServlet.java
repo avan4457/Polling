@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import polling.Models.Candidate;
 import polling.Services.IvoterServices;
 import polling.Services.VoterServices;
-import polling.Services.displyCandidate;
+//IT19390260 
 
 /**
  * Servlet implementation class addPresidentResultServlet

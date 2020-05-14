@@ -31,6 +31,7 @@ public class VoterServices implements IvoterServices {
 	private static Statement stmt;
 	private static ResultSet rs ;
 	
+	//IT19390260 
 	@Override
 	public boolean RegisterVoter(String Vid, String district, String status) {
 		boolean istrue=false;

@@ -3,6 +3,8 @@
 body{
 	margin:0;
 	padding:0;
+	font-size:50px;
+	
 }
 section
 {
@@ -25,6 +27,10 @@ section
 	background_size: cover;
 	background-repeat: no-repeat;
 }
+.details{
+	 margin-left:300px;
+	  font-size:30px;
+}
 *{
 padding:0;
 margin:0;
@@ -40,52 +46,4 @@ font-family: sans-serif;
 	 font-style: italic;
 	display: block;	
 	font-size:50px;
-}
-#profile{
-		width:40%;	
-}
-.info{
-	 color:white;
-	 margin-right:16px; 
-}
-#form2{
-	margin-bottom: 10px;
-	margin-left:250px;
-} 
-#ta{
-		width:40%;
-		align:center;
-}
-#text{
-	font-size:20px;
-	font-style: italic;
-	color:#009900;
-}
-table, td, th {
-  border: 0;
-   margin-left:150px;
-   margin-top:50px;
-  
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th {
-  text-align: left;
-}
-#ima1{
-	margin-top:50px;
-	float:left;
-}
-.box{
-	/* position: absolute;
-	left:50%;
-	transform: translate(-50%,-50%);
-	padding:20px;  */
-	padding:20px;
-	box-sizing: border -box;
-	display:flex;
 }

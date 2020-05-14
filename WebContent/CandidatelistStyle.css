@@ -1,0 +1,72 @@
+@CHARSET "ISO-8859-1";
+//IT19390260 
+body{
+	margin:0;
+	padding:0;
+	
+}
+.container{
+	background-image: url(images/voted3.jpg);
+	background-repeat: no-repeat;
+	background-size:100%;
+	background-size: cover;
+	position:relative;
+	width:100%;
+	height:600px;
+}
+
+.container span{
+	color:red;
+	text-transform:uppercase;
+	 font-style: italic;
+	display: block;	
+	font-size:50px;
+} 
+.span{
+	color:white;
+	text-transform:uppercase;
+	 font-style: italic;
+	display: block;	
+	font-size:50px;
+}
+.overlay{
+	background:#0d131300;
+	width: 100%;
+	height:100%;
+	/* position:absolute; */
+	top:0;
+	left:0;
+	z-index:1;
+} 
+
+.cont{
+	background-image: url(images/select.png);
+	background-repeat: no-repeat;
+	background-size:100%;
+	background-size: cover;
+	position:relative;
+	width:100%;
+	height:600px;
+}
+
+.over{
+	background:#0d131300;
+	width: 100%;
+	height:100%;
+	/* position:absolute; */
+	top:0;
+	left:0;
+	z-index:1;
+}
+.cont span{
+	color:red;
+	text-transform:uppercase;
+	 font-style: italic;
+	display: block;	
+	font-size:50px;
+}
+.details{
+font-size:50px;
+color:yellow;
+
+} 

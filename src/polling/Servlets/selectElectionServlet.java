@@ -3,7 +3,7 @@ package polling.Servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.IntUnaryOperator;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,8 +17,8 @@ import polling.Models.Election;
 import polling.Models.Voter;
 import polling.Services.IvoterServices;
 import polling.Services.VoterServices;
-import polling.Services.displyCandidate;
 
+//IT19390260 
 /**
  * Servlet implementation class selectElectionServlet
  */

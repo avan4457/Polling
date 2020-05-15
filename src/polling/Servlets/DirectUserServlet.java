@@ -18,6 +18,7 @@ import polling.Models.Voter;
 import polling.Services.CampaignService;
 import polling.Services.CandidateService;
 import polling.Services.ElectionServices;
+import polling.Services.ElectionServicesImp;
 import polling.Services.ICampaignService;
 import polling.Services.ICandidateService;
 import polling.Services.IElectionServices;
@@ -75,7 +76,8 @@ public class DirectUserServlet extends HttpServlet {
 		Election elec = new Election();
 		ICampaignService iCampaignService = new CampaignService();
 		ICandidateService iCandidateService = new CandidateService();
-		IElectionServices ie = new ElectionServices();
+		IElectionServices ie = new ElectionServicesImp();
+
 		if(action.equals("VOTER")){
 
 			IvoterServices iv = new VoterServices();
@@ -96,12 +98,11 @@ public class DirectUserServlet extends HttpServlet {
 			//if() candidate is not registered
 			if(!iuserServices.checkCandidate(user.getId()) || iuserServices.checkCandidateStatus(user.getId()))
 			dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
-			else {
+			else {				
 				c = iCandidateService.getCandidatebyId(user.getId());
 				elec = ie.getElectionByID(c.getElectionId());
 				List<Campaign> camDetails = iCampaignService.getCampaignByCandidate(user.getId());
-				List<Candidate> candidateDetails = null; //iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
-				//List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
+				List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), elec.getElectionName(),elec.getElectionType());
 				
 				request.setAttribute("candidateDetails", candidateDetails);
 				request.setAttribute("camDetails", camDetails);

@@ -1,6 +1,7 @@
 package polling.Servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import polling.Models.Candidate;
+import polling.Models.User;
 import polling.Services.CampaignService;
+import polling.Services.CandidateService;
 import polling.Services.ICampaignService;
+import polling.Services.ICandidateService;
+import polling.Services.IuserServices;
+import polling.Services.UserServices;
 
 /**
  * Servlet implementation class DeleteCampaign
@@ -31,8 +38,7 @@ public class DeleteCampaign extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -44,11 +50,22 @@ public class DeleteCampaign extends HttpServlet {
 		String campaignID = request.getParameter("cid");
 		String candidateId = request.getParameter("uid");
  		int electionId = Integer.parseInt(request.getParameter("eid"));
+ 		String election = request.getParameter("election");
+ 		String electionType = request.getParameter("election");
 		
 		ICampaignService iCampaignService = new CampaignService();
 		iCampaignService.removeCampaign(campaignID,candidateId,electionId);
+		
+		ICandidateService iCandidateService = new CandidateService();
+		List<Candidate> candidateDetails = iCandidateService.getCandidate(candidateId, electionId, election, electionType);
+		request.setAttribute("candidateDetails", candidateDetails);
+		
+		User user = new User();
+		IuserServices iuserServices = new UserServices();
+		user = iuserServices.getUserById(candidateId);
+		request.setAttribute("user", user);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/Candidate.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 		dispatcher.forward(request, response);
 	}
 

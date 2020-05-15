@@ -1,6 +1,7 @@
 package polling.Servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import polling.Models.Candidate;
+import polling.Models.Election;
 import polling.Models.User;
 import polling.Models.Voter;
 import polling.Services.CandidateService;
+import polling.Services.ElectionServices;
 import polling.Services.ICandidateService;
+import polling.Services.IElectionServices;
 import polling.Services.IuserServices;
 import polling.Services.IvoterServices;
 import polling.Services.UserServices;
@@ -62,7 +67,14 @@ public class DirectUserServlet extends HttpServlet {
 
 		String action = request.getParameter("choose");
 
-		if (action.equals("VOTER")) {
+		
+		Candidate c = new Candidate();
+		Election e = new Election();
+		//Candidate candidateDetails = new Candidate();
+		ICandidateService iCandidateService = new CandidateService();
+		IElectionServices ie = new ElectionServices();
+		if(action.equals("VOTER")){
+
 			IvoterServices iv = new VoterServices();
 			Voter voter = iv.getVoterByID(user.getId());
 			String district = " ";
@@ -74,14 +86,23 @@ public class DirectUserServlet extends HttpServlet {
 				request.setAttribute("voter", voter);
 				dispatcher = getServletContext().getRequestDispatcher("/voterProfile.jsp");
 			}
-		} else {
-			// boolean check exist by method
-			// if() candidate is not registered
-			if (!iuserServices.checkCandidate(user.getId()) || iuserServices.checkCandidateStatus(user.getId()))
-				dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
-			else
+
+		}
+		else{
+			//boolean check exist by method
+			//if() candidate is not registered
+			if(!iuserServices.checkCandidate(user.getId()) || iuserServices.checkCandidateStatus(user.getId()))
+			dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
+			else {
+/*				c = iCandidateService.getCandidatebyId(user.getId());
+				e = ie.getElectionByID(c.getElectionId());
+				List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
+				request.setAttribute("candidateDetails", candidateDetails);*/
+
+	
 				dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 			// else to candidate profile if registered
+		}
 		}
 		dispatcher.forward(request, response);
 	}

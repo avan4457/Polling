@@ -13,6 +13,12 @@
 	<%
 		String candidateId = request.getParameter("uid");
 		int electionId =Integer.parseInt(request.getParameter("eid")) ;
+		String electiontype = request.getParameter("etype");
+		String election = request.getParameter("election");
+		String party = request.getParameter("party");
+		int num = Integer.parseInt(request.getParameter("num"));
+		String district = request.getParameter("district");
+		String state = request.getParameter("state");
 	%>
 
 	<div class = "container">
@@ -27,6 +33,12 @@
 		<form action="AddCampaign" method="post">
 		<input type="hidden" name="uid" value=<%=candidateId %> />
 		<input type="hidden" name="eid" value=<%=electionId %> />
+		<input type="hidden" name="etype" value=<%=electiontype %> />
+		<input type="hidden" name="election" value=<%=election %> />
+		<input type="hidden" name="party" value=<%=party %> />
+		<input type="hidden" name="num" value=<%=num %> />
+		<input type="hidden" name="district" value=<%=district %> />
+		<input type="hidden" name="state" value=<%=state %> />
 			<table class ="table">
 				<tr>
 					<td>Heading</td><td><input type="text" name="heading"></td>

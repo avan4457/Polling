@@ -44,9 +44,9 @@ public class GetCandidate extends HttpServlet {
 		response.setContentType("text/html");
 
  		String candidateId = request.getParameter("uid");
- 		int electionId = 1;
- 		String election = null;
- 		String electionType = null;
+ 		int electionId =Integer.parseInt(request.getParameter("eid"));
+ 		String election = request.getParameter("election");
+ 		String electionType = request.getParameter("election");
 		ICandidateService iCandidateService = new CandidateService();
 		List<Candidate> canDetails = iCandidateService.getCandidate(candidateId, electionId, election, electionType);
 

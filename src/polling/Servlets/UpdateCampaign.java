@@ -46,7 +46,7 @@ public class UpdateCampaign extends HttpServlet {
 		
 		String campaignId = request.getParameter("cid");
  		String candidateId = request.getParameter("uid");
- 		int electionId = Integer.parseInt(request.getParameter("eid"));
+ 		Integer electionId = Integer.parseInt(request.getParameter("eid"));
 		String heading = request.getParameter("heading");
 		String statement = request.getParameter("statement");
 		String description = request.getParameter("desc");
@@ -63,7 +63,7 @@ public class UpdateCampaign extends HttpServlet {
 		List<Campaign> camDetails = iCampaignService.getCampaign(campaignId, candidateId, electionId);
 		
 		request.setAttribute("camDetails", camDetails);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/Candidate.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 		dispatcher.forward(request, response);
 		}
 	}

@@ -29,39 +29,44 @@ import polling.Services.VoterServices;
 @WebServlet("/DirectUserServlet")
 public class DirectUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DirectUserServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DirectUserServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		User user = new User();
-		
+
 		user.setEmail(request.getParameter("email"));
-		
+
 		IuserServices iuserServices = new UserServices();
 		user = iuserServices.getUserByEmail(user);
-		
+
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher;
-		
+
 		String action = request.getParameter("choose");
+
 		
 		Candidate c = new Candidate();
 		Election e = new Election();
@@ -69,18 +74,19 @@ public class DirectUserServlet extends HttpServlet {
 		ICandidateService iCandidateService = new CandidateService();
 		IElectionServices ie = new ElectionServices();
 		if(action.equals("VOTER")){
+
 			IvoterServices iv = new VoterServices();
 			Voter voter = iv.getVoterByID(user.getId());
 			String district = " ";
-			if(voter.getDistrict() == null){
+			if (voter.getDistrict() == null) {
 				voter.setDistrict(district);
 				request.setAttribute("voter", voter);
 				dispatcher = getServletContext().getRequestDispatcher("/editVoterDetails.jsp");
-			}
-			else{
+			} else {
 				request.setAttribute("voter", voter);
 				dispatcher = getServletContext().getRequestDispatcher("/voterProfile.jsp");
 			}
+
 		}
 		else{
 			//boolean check exist by method
@@ -91,9 +97,11 @@ public class DirectUserServlet extends HttpServlet {
 				c = iCandidateService.getCandidatebyId(user.getId());
 				e = ie.getElectionByID(c.getElectionId());
 				List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
+
 				request.setAttribute("candidateDetails", candidateDetails);
+
 				dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
-			//else to candidate profile if registered
+			// else to candidate profile if registered
 		}
 		}
 		dispatcher.forward(request, response);

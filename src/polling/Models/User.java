@@ -5,7 +5,7 @@ package polling.Models;
  *
  */
 public class User {
-	String Id, name, email, password, phoneNumber,nic,gender,pic;
+	private String Id, name, email, password, phoneNumber, nic, gender, pic;
 
 	public String getName() {
 		return name;

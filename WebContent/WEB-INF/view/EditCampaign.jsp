@@ -37,7 +37,7 @@
 	<div class ="row">
 		<div class="col-sm">
 		<form action="UpdateCampaign" method="post">
-			<table class ="table">
+			<table class ="table table hover">
 				<tr>
 					<td>Heading</td>
 					<td><input type="text" name="heading" value ="<%=heading%>"></td>

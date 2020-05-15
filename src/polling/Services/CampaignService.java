@@ -258,5 +258,35 @@ public class CampaignService implements ICampaignService {
 		return arr;
 	}
 		
+	@Override
+	public List<Campaign> getCampaignByCandidate(String CandidateId){
+		
+		List<Campaign> cam = new ArrayList<>();
+		
+		try {
+			connection = DBConnectionUtil.getDBConnection();
+			
+			preparedStatement = connection.prepareStatement("select * from campaign where userid = ?");
+			
+			preparedStatement.setString(1, CandidateId);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()){
+				Campaign c = new Campaign();
+				c.setCampaignId(rs.getString(1));
+				c.setDescription(rs.getString(6));
+				c.setHeading(rs.getString(4));
+				c.setStatement(rs.getString(5));
+				cam.add(c);
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cam;
+	}
 	
 }

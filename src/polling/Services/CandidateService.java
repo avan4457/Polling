@@ -107,6 +107,47 @@ public class CandidateService implements ICandidateService {
 		return electionId;
 	}
 	
+	
+	/**
+	 * This method will obtain the electionId using the election and election type
+	 * 
+	 */
+	
+	private String[] obtainElectionAndType(int electionId) {
+		String Array[] = new String [2];
+		try {
+			connection = DBConnectionUtil.getDBConnection();
+			preparedStatement = connection.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_AND_ELECTIONTYPE));
+			preparedStatement.setInt(CommonConstants.COLUMN_INDEX_ONE, electionId);
+		
+			ResultSet resultset = preparedStatement.executeQuery();
+			while(resultset.next()) {
+				
+				Array[0]= resultset.getString(CommonConstants.COLUMN_INDEX_ONE);
+				Array[1]= resultset.getString(CommonConstants.COLUMN_INDEX_TWO);
+				
+			}
+		} catch (SQLException | SAXException | IOException | ParserConfigurationException | ClassNotFoundException e) {
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of
+			 * transaction
+			 */
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		return Array;
+	}
+	
 	/**
 	 * This method will add a candidate in the candidate table
 	 * 
@@ -161,6 +202,7 @@ public class CandidateService implements ICandidateService {
 	
 	public ArrayList<Candidate> getCandidate(String candidateId, int electionId,String election,String electionType) {
 		ArrayList<Candidate> canDetails = new ArrayList<Candidate>();
+		
 		try {
 			connection = DBConnectionUtil.getDBConnection();
 			preparedStatement = connection.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_CANDIDATE_DETAILS));
@@ -175,6 +217,9 @@ public class CandidateService implements ICandidateService {
 				String district = resultSet.getString(CommonConstants.COLUMN_INDEX_FIVE);
 				String state = resultSet.getString(CommonConstants.COLUMN_INDEX_SIX);
 				
+				String Array[] = obtainElectionAndType(electionID);
+				election = Array[0];
+				electionType = Array[1];
 				Candidate candidate = new Candidate(candidateID,electionID,election,electionType,party,number,district,state);
 				canDetails.add(candidate);
 			}

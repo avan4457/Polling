@@ -373,5 +373,11 @@ select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.u
             select electionName from pollingsystem.election where datediff(startDate,sysdate()) > 1
         ]]>
 	</Query>
+	
+	<Query id="get_election_and_election_type">
+         <![CDATA[        
+            select electionName,electionType from election where electionID = ?
+        ]]>
+	</Query>
 </Querys>
 

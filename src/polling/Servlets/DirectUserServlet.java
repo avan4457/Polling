@@ -94,12 +94,12 @@ public class DirectUserServlet extends HttpServlet {
 			if(!iuserServices.checkCandidate(user.getId()) || iuserServices.checkCandidateStatus(user.getId()))
 			dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
 			else {
-/*				c = iCandidateService.getCandidatebyId(user.getId());
+				c = iCandidateService.getCandidatebyId(user.getId());
 				e = ie.getElectionByID(c.getElectionId());
 				List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
-				request.setAttribute("candidateDetails", candidateDetails);*/
 
-	
+				request.setAttribute("candidateDetails", candidateDetails);
+
 				dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 			// else to candidate profile if registered
 		}

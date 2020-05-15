@@ -72,8 +72,7 @@ public class CampaignService implements ICampaignService {
 	 * 
 	 */
 	
-	public List<Campaign> addCampaign (String candidateId, int electionId, String heading, String statement,
-			String description) {
+	public List<Campaign> addCampaign (String candidateId, int electionId, String heading, String statement,String description) {
 		ArrayList<Campaign> campaignDetails = new ArrayList<Campaign>();
 		String CampaignId = CommonUtil.generateIDs(getCampaignIDs());
 		try {

@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import polling.Models.Campaign;
 import polling.Models.Candidate;
 import polling.Models.Election;
 import polling.Models.User;
 import polling.Models.Voter;
+import polling.Services.CampaignService;
 import polling.Services.CandidateService;
 import polling.Services.ElectionServices;
+import polling.Services.ICampaignService;
 import polling.Services.ICandidateService;
 import polling.Services.IElectionServices;
 import polling.Services.IuserServices;
@@ -69,8 +72,8 @@ public class DirectUserServlet extends HttpServlet {
 
 		
 		Candidate c = new Candidate();
-		Election e = new Election();
-		//Candidate candidateDetails = new Candidate();
+		Election elec = new Election();
+		ICampaignService iCampaignService = new CampaignService();
 		ICandidateService iCandidateService = new CandidateService();
 		IElectionServices ie = new ElectionServices();
 		if(action.equals("VOTER")){
@@ -95,10 +98,13 @@ public class DirectUserServlet extends HttpServlet {
 			dispatcher = getServletContext().getRequestDispatcher("/CandidateRegistration.jsp");
 			else {
 				c = iCandidateService.getCandidatebyId(user.getId());
-				e = ie.getElectionByID(c.getElectionId());
-				List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
-
+				elec = ie.getElectionByID(c.getElectionId());
+				List<Campaign> camDetails = iCampaignService.getCampaignByCandidate(user.getId());
+				List<Candidate> candidateDetails = null; //iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
+				//List<Candidate> candidateDetails = iCandidateService.getCandidate(c.getCandidateId(), c.getElectionId(), e.getElectionName(),e.getElectionType());
+				
 				request.setAttribute("candidateDetails", candidateDetails);
+				request.setAttribute("camDetails", camDetails);
 
 				dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 			// else to candidate profile if registered

@@ -17,4 +17,6 @@ public interface ICampaignService {
 	
 	public String[] getListElements(List<Campaign> campaign);
 
+	List<Campaign> getCampaignByCandidate(String CandidateId);
+
 }

@@ -22,6 +22,7 @@
 		String campaignId = request.getParameter("cid");
 		String candidateId = request.getParameter("uid");
 		int electionId = Integer.parseInt(request.getParameter("eid"));
+		String elecId = request.getParameter("eid");
 		ICampaignService iCampaignService = new CampaignService();
 		List<Campaign> camDetails1 = iCampaignService.getCampaign(campaignId, candidateId, electionId);
 		String[] details = iCampaignService.getListElements(camDetails1);
@@ -50,10 +51,11 @@
 					
 				</tr>
 			</table>
+					<input type="hidden" name="cid" value =<%=campaignId %> />
+					<input type="hidden" name="uid" value =<%=candidateId %> />
+					<input type="hidden" name="eid" value =<%=elecId %> />
 		</form>
-					<input type="hidden" name="cid" value ="<%=campaignId %>>">
-					<input type="hidden" name="uid" value ="<%=candidateId %>>">
-					<input type="hidden" name="eid" value ="<%=electionId %>>">
+	
 		</div>
 	</div>	
 		</div>

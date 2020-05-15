@@ -11,8 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import polling.Models.Campaign;
+import polling.Models.Candidate;
+import polling.Models.Election;
+import polling.Models.User;
 import polling.Services.CampaignService;
+import polling.Services.CandidateService;
+import polling.Services.ElectionServicesImp;
 import polling.Services.ICampaignService;
+import polling.Services.ICandidateService;
+import polling.Services.IElectionServices;
+import polling.Services.IuserServices;
+import polling.Services.UserServices;
 
 /**
  * Servlet implementation class UpdateCampaign
@@ -46,13 +55,19 @@ public class UpdateCampaign extends HttpServlet {
 		
 		String campaignId = request.getParameter("cid");
  		String candidateId = request.getParameter("uid");
- 		Integer electionId = Integer.parseInt(request.getParameter("eid"));
+ 		int electionId = Integer.parseInt(request.getParameter("eid"));
 		String heading = request.getParameter("heading");
 		String statement = request.getParameter("statement");
 		String description = request.getParameter("desc");
 		
 		ICampaignService iCampaignService = new CampaignService();
-		
+		ICandidateService iCandidateService = new CandidateService();
+		IElectionServices iElectionServices = new ElectionServicesImp();
+		IuserServices iuserServices = new UserServices();
+		User user = new User();
+		user = iuserServices.getUserById(candidateId);
+		Election e = new Election();
+		e = iElectionServices.getElectionByID(electionId);
 		
 		Campaign campaign = new Campaign(campaignId, candidateId, electionId,heading,statement,description);
 		
@@ -62,7 +77,10 @@ public class UpdateCampaign extends HttpServlet {
 		if(isSuccess == true){
 		List<Campaign> camDetails = iCampaignService.getCampaign(campaignId, candidateId, electionId);
 		
+		List<Candidate> candidateDetails = iCandidateService.getCandidate(candidateId, electionId, e.getElectionName(), e.getElectionType());
+		request.setAttribute("candidateDetails", candidateDetails);
 		request.setAttribute("camDetails", camDetails);
+		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
 		dispatcher.forward(request, response);
 		}

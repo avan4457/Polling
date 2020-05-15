@@ -17,6 +17,10 @@ public class Campaign {
 		this.description = description;
 	}
 	
+	public Campaign() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCampaignId () {
 		return campaignId;
 	}
@@ -39,6 +43,22 @@ public class Campaign {
 	
 	public String getDescription () {
 		return description;
+	}
+
+	public void setCampaignId(String campaignId) {
+		this.campaignId = campaignId;
+	}
+
+	public void setStatement(String statement) {
+		this.statement = statement;
+	}
+
+	public void setHeading(String heading) {
+		this.heading = heading;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

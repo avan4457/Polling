@@ -20,55 +20,57 @@ import polling.Services.UserServices;
  * Servlet implementation class SavePicServlet
  */
 @WebServlet("/ProfilePicServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
-maxFileSize = 1024 * 1024 * 10,
-maxRequestSize = 1024 * 1024 * 5)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 5)
 public class ProfilePicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProfilePicServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ProfilePicServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		User user = new User();
 		String action = request.getParameter("submit");
 		IuserServices iuserServices = new UserServices();
 		user.setEmail(request.getParameter("pemail"));
-		
+
 		user = iuserServices.getUserByEmail(user);
-		if(action.equals("Save")){
-		Part part = request.getPart("pic");
-		
-		String fileName = iuserServices.getFileName(part);
-		String savepath = "C:\\Users\\avant\\OneDrive\\Desktop\\SLIIT\\OOP\\eclipseP\\Project\\WebContent\\images\\" + File.separator + fileName;
-		File file = new File(savepath);
-		part.write(savepath + File.separator);
-		
-		user.setPic(fileName);
-		
-		iuserServices.addProfImg(user);		
-		}
-		else if(action.equals("Remove"))
+		if (action.equals("Save")) {
+			Part part = request.getPart("pic");
+
+			String fileName = iuserServices.getFileName(part);
+			String savepath = "C:\\Users\\avant\\OneDrive\\Desktop\\SLIIT\\OOP\\eclipseP\\Project\\WebContent\\images\\"
+					+ File.separator + fileName;
+			File file = new File(savepath);
+			part.write(savepath + File.separator);
+
+			user.setPic(fileName);
+
+			iuserServices.addProfImg(user);
+		} else if (action.equals("Remove"))
 			iuserServices.removeProfilePic(user.getId());
 		user = iuserServices.getUserByEmail(user);
-			
+
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home.jsp");
 		dispatcher.forward(request, response);

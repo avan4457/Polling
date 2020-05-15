@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ page import = "polling.Models.User" %>
+<%@ page import = "polling.Models.Campaign" %>
+<%@ page import = "java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,6 +69,15 @@ String userId = u.getId();
 						<input type="hidden" name="eId" value="${can.electionId}">
 					</c:forEach>
 					
+	<%
+	
+	List<Campaign> camDetails = (List)request.getAttribute("camDetails");
+	String type="button";
+	if(camDetails == null){
+		type="hidden";
+	}
+	
+	%>
 					<c:forEach var="cam" items="${camDetails}">
 					
 						<c:set var="cid" value="${cam.campaignId}" />
@@ -113,15 +124,15 @@ String userId = u.getId();
 				<br><br>
 				
 				<a href="${viewCampaign}">
-				<input type="button" class="btn btn-primary" value="View Campaign">
+				<input type="<%=type %>" class="btn btn-primary" value="View Campaign">
 				</a>
 				
 				<a href="${editCampaign}">
-				<input type="button" class="btn btn-primary" value="Edit Campaign">
+				<input type="<%=type %>" class="btn btn-primary" value="Edit Campaign">
 				</a>
 				
 				<a href="${deleteCampaign}">
-				<input type="button" class="btn btn-primary" value="Delete Campaign">
+				<input type="<%=type %>" class="btn btn-primary" value="Delete Campaign">
 					<span class="glyphicon glyphicon-plus"></span>
 				</a>	
 				<br>

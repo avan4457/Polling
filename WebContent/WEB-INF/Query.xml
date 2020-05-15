@@ -367,5 +367,11 @@ select c.userId, u.name,c.party,c.candidateNum from candidate c,user u where c.u
             delete from campaign where campaignid = ? and userid = ? and electionId = ?
         ]]>
 	</Query>
+	
+	<Query id="get_scheduled_election">
+         <![CDATA[        
+            select electionName from pollingsystem.election where datediff(startDate,sysdate()) > 1
+        ]]>
+	</Query>
 </Querys>
 

@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import polling.Models.Candidate;
+import polling.Models.Election;
 import polling.Utils.CommonConstants;
 import polling.Utils.CommonUtil;
 import polling.Utils.DBConnectionUtil;
@@ -111,10 +112,10 @@ public class CandidateService implements ICandidateService {
 	 * 
 	 */
 	
-	public void addCandidate(int electionId,String electionType, String election, String party, String district) {
+	public void addCandidate(String candidateId,int electionId,String electionType, String election, String party, String district) {
 	
 		try {
-			String candidateId = "1";
+			
 			int candidateNum = CommonUtil.generateNum(getCandidateNum());
 			String state = "Nominated";
 			connection = DBConnectionUtil.getDBConnection();
@@ -283,7 +284,7 @@ public class CandidateService implements ICandidateService {
 	
 	
 	/**
-	 * This method will change state of candidate to closed if election date is
+	 * This method will change state of candidate to closed by checking if the date of the election
 	 * 
 	 */
 	
@@ -323,7 +324,81 @@ public class CandidateService implements ICandidateService {
 			}
 		}
 	}
+	
+	
+	
+	
+	/**
+	 * This method will retrieve the elections which are scheduled to be held according to type
+	 * 
+	 */
+	
+	public List<Election> getElectionByType() {
+		List<Election> electionName = new ArrayList<Election>();
+		
+			try {
+				connection = DBConnectionUtil.getDBConnection();
+				preparedStatement = connection
+						.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_GET_ELECTION_BY_TYPE));
+				
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while(resultSet.next()) {
+					Election election = new Election();
+					 election.setElectionName(resultSet.getString(CommonConstants.COLUMN_INDEX_ONE));
+					
+					electionName.add(election);
+				}
+			
+			} catch (SQLException | SAXException | IOException | ParserConfigurationException | ClassNotFoundException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			} finally {
+				/*
+				 * Close prepared statement and database connectivity at the end
+				 * of transaction
+				 */
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+					if (connection != null) {
+						connection.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}
+			}
+		
+		return electionName;
+	}
+	
+	@Override
+	public Candidate getCandidatebyId(String Id) {
+		Candidate c = new Candidate();
+		
+		try {
+			connection = DBConnectionUtil.getDBConnection();
+			
+			preparedStatement = connection.prepareStatement("select * from candidate where userId = ?");
+			
+			preparedStatement.setString(1, Id);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				c.setCandidateId(rs.getString(1));
+				c.setElectionId(rs.getInt(2));
+				c.setParty(rs.getString(3));
+				c.setNumber(rs.getInt(4));
+				c.setDistrict(rs.getString(5));
+				c.setState(rs.getString(6));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return c;
+	}
 }
+
 	
 	
 		

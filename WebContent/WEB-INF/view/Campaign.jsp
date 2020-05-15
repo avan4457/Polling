@@ -10,6 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+		String candidateId = request.getParameter("uid");
+		int electionId =Integer.parseInt(request.getParameter("eid")) ;
+	%>
 	<div class= "container">
 		<c:forEach var = "cam" items ="${camDetails}">
 		
@@ -17,17 +21,17 @@
 		
 		<div class ="row">
 			<div class="col-sm">
-				<h1>${cam.Heading}</h1>
+				<h1><b>${cam.heading}</b></h1>
 			</div>
 		</div>
 		<div class ="row">
 			<div class="col-sm">
-				<h3>${cam.Statement}</h3>
+				<h3>${cam.statement}</h3>
 			</div>
 		</div>
 		<div class ="row">
 			<div class="col-sm">
-				<p>${cam.Description}</p>
+				<p>${cam.description}</p>
 			</div>
 		</div>
 		</c:forEach>

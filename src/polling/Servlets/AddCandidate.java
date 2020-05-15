@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import polling.Models.Candidate;
+import polling.Models.User;
 import polling.Services.CandidateService;
 import polling.Services.ICandidateService;
+import polling.Services.IuserServices;
+import polling.Services.UserServices;
 
 /**
  * Servlet implementation class AddCandidate
@@ -47,28 +50,26 @@ public class AddCandidate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
-		//Candidate candidate = new Candidate();
-		//HttpSession session = request.getSession(false);
 		
-		//session.setAttribute("UserId", UserId);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-		//adding the user id from the previous login page 
-		//candidate.setCandidateId((Integer.parseInt(session.getAttribute((String) UserId)));
-		//candidate.setElectionType(request.getParameter("etype"));
-		//candidate.setElection(request.getParameter("election"));
-		//candidate.setParty(request.getParameter("party"));
-		//candidate.setDistrict(request.getParameter("district"));
-		String candidateId = "1";
+		String candidateId = request.getParameter("uid");
 		String electionType  = request.getParameter("etype");
 		String election = request.getParameter("election");
 		String party = request.getParameter("party");
 		String district = request.getParameter("district");
 		ICandidateService iCandidateService = new CandidateService();
 		int electionId = iCandidateService.obtainElectionId(election, electionType);
-		iCandidateService.addCandidate(electionId,electionType,election,party,district);
+		iCandidateService.addCandidate(candidateId,electionId,electionType,election,party,district);
 		List<Candidate> candidateDetails = iCandidateService.getCandidate(candidateId, electionId, election, electionType);
 		request.setAttribute("candidateDetails", candidateDetails);
-			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/Candidate.jsp");
+		
+		IuserServices iu = new UserServices();
+		User user =new User();
+		user = iu.getUserById(candidateId);
+		
+			request.setAttribute("user", user);
+			RequestDispatcher dispatcher;
+			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/Candidate.jsp");
+
 			dispatcher.forward(request, response);
 		
 	}

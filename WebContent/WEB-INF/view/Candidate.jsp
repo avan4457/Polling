@@ -13,6 +13,7 @@
 <body>
 <%
 User u = (User)request.getAttribute("user");
+String userId = u.getId();
 %>
 	<div class = "container">
 		<div class = "row">
@@ -25,8 +26,15 @@ User u = (User)request.getAttribute("user");
 				<table class="table table-hover">
 					<c:forEach var = "can" items ="${candidateDetails}">
 					
+
 					<c:set var="uid" value="${can.candidateId}" />
 					<c:set var="eid" value="${can.electionId}" />
+					<c:set var="etype" value="${can.electionType}" />
+					<c:set var="election" value="${can.election}" />
+					<c:set var="party" value="${can.party}" />
+					<c:set var="num" value="${can.number}" />
+					<c:set var="district" value="${can.district}" />
+					<c:set var="state" value="${can.state}" />
 					
 					<tr>
 						<td>Election Type </td>
@@ -71,12 +79,19 @@ User u = (User)request.getAttribute("user");
 			<c:url value="CreateCampaign.jsp" var="createCampaign">
 				<c:param name="uid" value="${uid}"/>
 				<c:param name="eid" value="${eid}"/>
+				<c:param name="etype" value="${etype}"/>
+				<c:param name="election" value="${election}"/>
+				<c:param name="party" value="${party}"/>
+				<c:param name="num" value="${num}"/>
+				<c:param name="district" value="${district}"/>
+				<c:param name="state" value="${state}"/>
 			</c:url>
 			
 			<c:url value="GetCampaign" var="viewCampaign">
 				<c:param name="cid" value="${cid}"/>
 				<c:param name="uid" value="${uid}"/>
 				<c:param name="eid" value="${eid}"/>
+				
 			</c:url>
 			
 			<c:url value="EditCampaign.jsp" var="editCampaign">
@@ -93,24 +108,21 @@ User u = (User)request.getAttribute("user");
 			
 			<div class = "col-sm">
 				<a href="${createCampaign}">
-				<input type="button" class="btn btn-primary" >
-					<span class="glyphicon glyphicon-plus"></span>Create Campaign
+				<input type="button" class="btn btn-primary" value="Create Campaign" >
 				</a>	
 				<br><br>
 				
 				<a href="${viewCampaign}">
-				<input type="button" class="btn btn-primary" onclick="viewCampaign()">
-					<span class="glyphicon glyphicon-plus"></span>View Campaign
+				<input type="button" class="btn btn-primary" value="View Campaign">
 				</a>
 				
 				<a href="${editCampaign}">
-				<input type="button" class="btn btn-primary" onclick="editCampaign()">
-					<span class="glyphicon glyphicon-plus"></span>Edit Campaign
+				<input type="button" class="btn btn-primary" value="Edit Campaign">
 				</a>
 				
 				<a href="${deleteCampaign}">
-				<input type="button" class="btn btn-primary" onclick="deleteCampaign()">
-					<span class="glyphicon glyphicon-plus"></span>Delete Campaign
+				<input type="button" class="btn btn-primary" value="Delete Campaign">
+					<span class="glyphicon glyphicon-plus"></span>
 				</a>	
 				<br>
 				<br>

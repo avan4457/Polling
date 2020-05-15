@@ -85,9 +85,9 @@ public class CampaignService implements ICampaignService {
 			preparedStatement.setString(CommonConstants.COLUMN_INDEX_ONE, campaignId);
 			preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWO, candidateId);
 			preparedStatement.setInt(CommonConstants.COLUMN_INDEX_THREE, electionId);
-			preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWO, heading);
-			preparedStatement.setString(CommonConstants.COLUMN_INDEX_THREE, statement);
-			preparedStatement.setString(CommonConstants.COLUMN_INDEX_FOUR, description);
+			preparedStatement.setString(CommonConstants.COLUMN_INDEX_FOUR, heading);
+			preparedStatement.setString(CommonConstants.COLUMN_INDEX_FIVE, statement);
+			preparedStatement.setString(CommonConstants.COLUMN_INDEX_SIX, description);
 			
 			preparedStatement.executeUpdate();
 			Campaign campaign = new Campaign(campaignId,candidateId,electionId,heading,statement,description);
@@ -248,11 +248,13 @@ public class CampaignService implements ICampaignService {
 	 */
 	
 	public String[] getListElements(List<Campaign> campaign) {
+		
+		List<Campaign> cam = campaign;
 		String arr[] = new String [3];
 		
-		arr[0] = campaign.get(0).getHeading();
-		arr[1] = campaign.get(0).getStatement();
-		arr[2] = campaign.get(0).getDescription();
+		arr[0] = cam.get(0).getHeading();
+		arr[1] = cam.get(0).getStatement();
+		arr[2] = cam.get(0).getDescription();
 		
 		return arr;
 	}

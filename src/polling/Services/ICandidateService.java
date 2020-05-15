@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import polling.Models.Candidate;
+import polling.Models.Election;
 
 public interface ICandidateService {
 
@@ -18,9 +19,11 @@ public interface ICandidateService {
 
 	public boolean removeCandidate(String candidateId, int electionId, String state);
 
-	public void addCandidate(int electionId,String electionType, String election, String party, String district);
+	public void addCandidate(String candidateId,int electionId,String electionType, String election, String party, String district);
 	
 	public void closeCandidate(String candidateId, int electionId, String state);
 	
-
+	public List<Election> getElectionByType();
+	
+	public Candidate getCandidatebyId(String Id);
 }

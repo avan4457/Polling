@@ -38,9 +38,9 @@ public class Candidate {
 		return election;
 	}
 	
-	/*public void setElection (String election) {
-		this.Election = election;
-	}*/
+	public void setElection (String election) {
+		this.election = election;
+	}
 	
 	public int getElectionId () {
 		return electionId;
@@ -55,9 +55,9 @@ public class Candidate {
 
 	}
 	
-//	public void setElectionType (String electionType) {
-//		this.ElectionType = electionType;
-//	}
+	public void setElectionType (String electionType) {
+		this.electionType = electionType;
+	}
 	
 	public String getParty () {
 		return party;
